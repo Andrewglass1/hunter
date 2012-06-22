@@ -3,46 +3,101 @@
 
 <% @market.merchants.map(&:zip).uniq[0..3].each do |zip| %>
   <p>
-  <input type="checkbox" id=<%=zip%> prop="zip" class="showhide"checked/><%= zip %></p>
-  <a href="#" id=<%=zip%> type="bounce" class="bouncepins">bounce <%= zip %></a></p>
+  <input type="checkbox" id=<%=zip%> prop="zip" class="showhide"checked/><%= zip %>
+  <a href="#" id=<%=zip%> prop="zip" class="bouncepins">bounce <%= zip %></a>
+  <a href="#" id=<%=zip%> prop="zip" class="stoppins">stopbounce <%= zip %></a></p>
 <% end %>
 
-  <input type="checkbox" id="Groupon" prop="provider" class="showhide"checked/>Groupon</p>
-  <input type="checkbox" id="Groupon" prop="provider" class="bounce"/>Bounce Groupon</p>
-  <input type="checkbox" id="Living Social" prop="provider" class="showhide"checked/>LivingSocial</p>
+  <p><input type="checkbox" id="Groupon" prop="provider" class="showhide"checked/>Groupon
+  <a href="#" id="Groupon" prop="provider" class="bouncepins">bounce GPN</a>
+  <a href="#" id="Groupon" prop="provider" class="stoppins">stopbounce GPN</a></p>
+  <p><input type="checkbox" id="livingsocial" prop="provider" class="showhide"checked/>LivingSocial
+  <a href="#" id="livingsocial" prop="provider" class="bouncepins">bounce LS</a>
+  <a href="#" id="livingsocial" prop="provider" class="stoppins">stopbounce LS</a></p>
+  </p>
+
+
+<div id='revenue-range'></div>
+<p>
+  <label for="filtered-rev">Price range:</label>
+  <input type="text" id="filtered-rev" style="border:0; color:#f6931f; font-weight:bold;" />
+</p>
+
+<div id='date-range'></div>
+<p>
+  <label for="filtered-dates">Date range:</label>
+  <input type="text" id="filtered-dates" style="border:0; color:#f6931f; font-weight:bold;" />
+</p>
 
 <%= gmaps(@gmap_options) %>
 <% content_for :scripts do %>
- <script type="text/javascript" charset="utf-8">
+  <script type="text/javascript" charset="utf-8">
 
     console.log(Gmaps.map)
     Gmaps.map.callback = function() {
     }
 
-    $("input.showhide:checkbox").click(function() {
-      var attribute = $(this).attr('prop')
-      var this_attr = $(this).attr('id')
-      for(x in Gmaps.map.markers) {
-        var marker= Gmaps.map.markers[x];
-        if(marker[attribute] == this_attr){
-          if($(this).attr('checked')){
-            Gmaps.map.showMarker(marker)}
-          else{
-            Gmaps.map.hideMarker(marker)}
-          }
-        }
-      })
+    $( "#revenue-range" ).slider({
+      range: true,
+      min: <%= @market.min_revenue %>,
+      max: <%= @market.max_revenue %>,
+      values: [ 0, <%= @market.max_revenue %> ],
+      slide: function(event, ui) {
+        filterPrice(ui.values[0],ui.values[1]);
+        $( "#filtered-rev" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      }
+    });
 
-    $("input.bounce:checkbox").click(function() {
-      var attribute = $(this).attr('prop')
-      var this_attr = $(this).attr('id')
+    $( "#date-range" ).slider({
+      range: true,
+      min: 0,
+      step: 1,
+      max: <%= @market.months_for_selector %>,
+      values: [ 0, <%= @market.months_for_selector %> ],
+      slide: function(event, ui) {
+        filterPrice(ui.values[0],ui.values[1])
+        $( "#filtered-dates" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+      }
+    });
+
+    function filterPrice(min,max){
+      for(x in Gmaps.map.markers) {
+        var marker= Gmaps.map.markers[x];
+        if(marker.revenue < min || marker.revenue > max){
+          Gmaps.map.hideMarker(marker);
+        }
+        else{
+          Gmaps.map.showMarker(marker);
+        }
+      }
+    }
+
+    function filterDate(min,max){
+      for(x in Gmaps.map.markers) {
+        var marker= Gmaps.map.markers[x];
+        if(marker.months_since < min || marker.months_since > max){
+          Gmaps.map.hideMarker(marker);
+        }
+        else{
+          Gmaps.map.showMarker(marker);
+        }
+      }
+    }
+
+
+
+
+
+    $("input.showhide:checkbox").click(function() {
+      var attribute = $(this).attr('prop');
+      var this_attr = $(this).attr('id');
       for(x in Gmaps.map.markers) {
         var marker= Gmaps.map.markers[x];
         if(marker[attribute] == this_attr){
           if($(this).attr('checked')){
-            Gmaps.map.bounceMarker(marker)}
+            Gmaps.map.showMarker(marker);}
           else{
-            Gmaps.map.stopMarker(marker)}
+            Gmaps.map.hideMarker(marker);}
           }
         }
       })
@@ -50,7 +105,7 @@
     $('#placeme').click(function() {
       var lat = Gmaps.map.userLocation.$a;
       var lng = Gmaps.map.userLocation.ab;
-      console.log(lng)
+      console.log(u)
       Gmaps.map.createMarker({Lat: lat,
                     Lng: lng,
                     rich_marker: null,
@@ -59,17 +114,25 @@
       });
 
     $('.bouncepins').click(function() {
-      var attribute = $(this).attr('type')
+      var attribute = $(this).attr('prop')
       var this_attr = $(this).attr('id')
-
       for(x in Gmaps.map.markers) {
         var marker= Gmaps.map.markers[x];
-        marker.serviceObject.animating = false
-        marker.serviceObject.animation = null
-
         if(marker[attribute] == this_attr){
-          Gmaps.map.showMarker(marker)}
+          Gmaps.map.bounceMarker(marker);
+          }
+        }
+      })
+
+    $('.stoppins').click(function() {
+      var attribute = $(this).attr('prop')
+      var this_attr = $(this).attr('id')
+      for(x in Gmaps.map.markers) {
+        var marker= Gmaps.map.markers[x];
+        if(marker[attribute] == this_attr){
+          Gmaps.map.stopMarker(marker);
+          }
         }
       })
   </script>
-  <% end %>
+<% end %>

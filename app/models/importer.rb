@@ -1,9 +1,12 @@
 module Importer
 require 'csv'
+extend ApplicationHelper
+
   def self.import
     csv_text = File.read('/Users/andrewglass/Desktop/palm_beach_15.csv')
     csv = CSV.parse(csv_text, {:headers => true, :header_converters => :symbol})
     csv.each do |row|
+
       row = row.to_hash.with_indifferent_access
       market   = Market.find_or_create_by_name(row['division'])
       merchant = Merchant.find_or_create_by_yipit_merchant_id(
@@ -28,8 +31,8 @@ require 'csv'
               :discount => row['discount'],
               :full_title => row['full_title'],
               :price => row['price'],
-              :provider =>row ['site'],
-              :revenue => row['revenue'],
+              :provider => standardize_provider(row['site']),
+              :revenue => revenue_or_zero(row['revenue']),
               :revenue_index => row['rev_index'],
               :short_title => row['short_title'],
               :sold => row['sold'],
@@ -39,4 +42,5 @@ require 'csv'
               :longitude => merchant.longitude)
     end
   end
+
 end

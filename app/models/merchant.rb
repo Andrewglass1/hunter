@@ -8,6 +8,11 @@ class Merchant < ActiveRecord::Base
   def providers
     deals.map(&:provider).uniq
   end
+
+  def run_with_ls?
+    providers.include?("livingsocial")
+  end
+
 end
 
 

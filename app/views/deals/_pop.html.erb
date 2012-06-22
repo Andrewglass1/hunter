@@ -1,3 +1,6 @@
-<h1><%= deal.full_title %></h1>
-Merchant: <%= deal.merchant.name %>
-Revenue: <%= deal.revenue %>
+<p><%= deal.full_title %></p>
+<p>Merchant: <%= deal.merchant.name %></p>
+<p>Revenue: <%= deal.revenue %></p>
+<p>Day: <%= deal.date_added %></p>
+<p>months since: <%= months_since(deal.date_added) %></p>
+<p>Run with LS: <%= deal.merchant.run_with_ls? %> </p>

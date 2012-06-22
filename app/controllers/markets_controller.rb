@@ -1,5 +1,6 @@
 class MarketsController < ApplicationController
   extend Map
+  include ApplicationHelper
   def show
     @market    = Market.find(params[:id])
     @merchants = @market.merchants
@@ -11,7 +12,9 @@ class MarketsController < ApplicationController
                       :height  => 32})
       marker.title   "#{deal.merchant.name}"
       marker.sidebar "i'm the sidebar"
-      marker.json({ :id => deal.id, :price => deal.price, :revenue => deal.revenue, :provider => deal.provider, :zip => deal.merchant.zip })
+      marker.json({ :revenue => deal.revenue, :ls_merchant => deal.merchant.run_with_ls?,
+                    :provider => deal.provider, :zip => deal.merchant.zip,
+                    :months_since => months_since(deal.date_added) })
     end
 
     @gmap_options = {"map_options" => Map.map_options,

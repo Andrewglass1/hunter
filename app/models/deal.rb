@@ -1,4 +1,5 @@
 class Deal < ActiveRecord::Base
+  
   attr_accessible :merchant_id,:market_id,  :category,    :date_added,
                   :discount,   :full_title, :price,       :provider,
                   :revenue,  :revenue_index,:short_title, :date_ended, 
@@ -9,5 +10,6 @@ class Deal < ActiveRecord::Base
 
   belongs_to :merchant
   belongs_to :market
+
 
 end
