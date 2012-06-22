@@ -1,0 +1,75 @@
+<h1><%= @market.name %></h1>
+<a href="#" id="placeme">Place me on map</a>
+
+<% @market.merchants.map(&:zip).uniq[0..3].each do |zip| %>
+  <p>
+  <input type="checkbox" id=<%=zip%> prop="zip" class="showhide"checked/><%= zip %></p>
+  <a href="#" id=<%=zip%> type="bounce" class="bouncepins">bounce <%= zip %></a></p>
+<% end %>
+
+  <input type="checkbox" id="Groupon" prop="provider" class="showhide"checked/>Groupon</p>
+  <input type="checkbox" id="Groupon" prop="provider" class="bounce"/>Bounce Groupon</p>
+  <input type="checkbox" id="Living Social" prop="provider" class="showhide"checked/>LivingSocial</p>
+
+<%= gmaps(@gmap_options) %>
+<% content_for :scripts do %>
+ <script type="text/javascript" charset="utf-8">
+
+    console.log(Gmaps.map)
+    Gmaps.map.callback = function() {
+    }
+
+    $("input.showhide:checkbox").click(function() {
+      var attribute = $(this).attr('prop')
+      var this_attr = $(this).attr('id')
+      for(x in Gmaps.map.markers) {
+        var marker= Gmaps.map.markers[x];
+        if(marker[attribute] == this_attr){
+          if($(this).attr('checked')){
+            Gmaps.map.showMarker(marker)}
+          else{
+            Gmaps.map.hideMarker(marker)}
+          }
+        }
+      })
+
+    $("input.bounce:checkbox").click(function() {
+      var attribute = $(this).attr('prop')
+      var this_attr = $(this).attr('id')
+      for(x in Gmaps.map.markers) {
+        var marker= Gmaps.map.markers[x];
+        if(marker[attribute] == this_attr){
+          if($(this).attr('checked')){
+            Gmaps.map.bounceMarker(marker)}
+          else{
+            Gmaps.map.stopMarker(marker)}
+          }
+        }
+      })
+
+    $('#placeme').click(function() {
+      var lat = Gmaps.map.userLocation.$a;
+      var lng = Gmaps.map.userLocation.ab;
+      console.log(lng)
+      Gmaps.map.createMarker({Lat: lat,
+                    Lng: lng,
+                    rich_marker: null,
+                    marker_picture: ""
+                   });
+      });
+
+    $('.bouncepins').click(function() {
+      var attribute = $(this).attr('type')
+      var this_attr = $(this).attr('id')
+
+      for(x in Gmaps.map.markers) {
+        var marker= Gmaps.map.markers[x];
+        marker.serviceObject.animating = false
+        marker.serviceObject.animation = null
+
+        if(marker[attribute] == this_attr){
+          Gmaps.map.showMarker(marker)}
+        }
+      })
+  </script>
+  <% end %>

@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  yipit_deal_id: 1
+  date_added: 2012-06-21
+  date_ended: 2012-06-21
+  provider: MyString
+  full_title: MyString
+  short_title: MyString
+  price: 1.5
+  value: 1.5
+  discount: 1.5
+  sold: 1
+  sold_out: MyString
+  revenue: MyString
+  revenue_index: MyString
+  merchant_id: 1
+  deal_url: MyString
+  category: MyString
+
+two:
+  yipit_deal_id: 1
+  date_added: 2012-06-21
+  date_ended: 2012-06-21
+  provider: MyString
+  full_title: MyString
+  short_title: MyString
+  price: 1.5
+  value: 1.5
+  discount: 1.5
+  sold: 1
+  sold_out: MyString
+  revenue: MyString
+  revenue_index: MyString
+  merchant_id: 1
+  deal_url: MyString
+  category: MyString
