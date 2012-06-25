@@ -16,9 +16,9 @@ class Market < ActiveRecord::Base
     deals.map(&:revenue).min
   end
 
-  def months_for_selector
+  def days_for_selector
     oldest_date = deals.map(&:date_added).min 
-    months_since(oldest_date)
+    days_since(oldest_date)
   end
 end
 

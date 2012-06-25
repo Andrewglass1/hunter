@@ -11,5 +11,7 @@ class Deal < ActiveRecord::Base
   belongs_to :merchant
   belongs_to :market
 
-
+  def merchant_deal_count
+    merchant.deals.count
+  end
 end

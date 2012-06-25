@@ -14,7 +14,7 @@ class MarketsController < ApplicationController
       marker.sidebar "i'm the sidebar"
       marker.json({ :revenue => deal.revenue, :ls_merchant => deal.merchant.run_with_ls?,
                     :provider => deal.provider, :zip => deal.merchant.zip,
-                    :months_since => months_since(deal.date_added) })
+                    :days_since => days_since(deal.date_added) })
     end
 
     @gmap_options = {"map_options" => Map.map_options,

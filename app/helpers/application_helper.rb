@@ -1,7 +1,7 @@
 module ApplicationHelper
 
-  def months_since(old_date)
-    (Date.today.month + (12 * Date.today.year)) - (old_date.month + (12 * old_date.year)) + 1
+  def days_since(old_date)
+    (Date.today - old_date).to_i + 2
   end
 
   def standardize_provider(provider)

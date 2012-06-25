@@ -3,17 +3,17 @@
 
 <% @market.merchants.map(&:zip).uniq[0..3].each do |zip| %>
   <p>
-  <input type="checkbox" id=<%=zip%> prop="zip" class="showhide"checked/><%= zip %>
-  <a href="#" id=<%=zip%> prop="zip" class="bouncepins">bounce <%= zip %></a>
-  <a href="#" id=<%=zip%> prop="zip" class="stoppins">stopbounce <%= zip %></a></p>
+  <input type="checkbox" data-property-value="<%=zip%>" data-property-name="zip" class="showhide"checked/><%= zip %>
+  <a href="#" data-property-value="<%=zip%>" data-property-name="zip" class="bouncepins">bounce <%= zip %></a>
+  <a href="#" data-property-value="<%=zip%>" data-property-name="zip" class="stoppins">stopbounce <%= zip %></a></p>
 <% end %>
 
-  <p><input type="checkbox" id="Groupon" prop="provider" class="showhide"checked/>Groupon
-  <a href="#" id="Groupon" prop="provider" class="bouncepins">bounce GPN</a>
-  <a href="#" id="Groupon" prop="provider" class="stoppins">stopbounce GPN</a></p>
-  <p><input type="checkbox" id="livingsocial" prop="provider" class="showhide"checked/>LivingSocial
-  <a href="#" id="livingsocial" prop="provider" class="bouncepins">bounce LS</a>
-  <a href="#" id="livingsocial" prop="provider" class="stoppins">stopbounce LS</a></p>
+  <p><input type="checkbox" data-property-value="Groupon" data-property-name="provider" class="showhide"checked/>Groupon
+  <a href="#" data-property-value="Groupon" data-property-name="provider" class="bouncepins">bounce GPN</a>
+  <a href="#" data-property-value="Groupon" data-property-name="provider" class="stoppins">stopbounce GPN</a></p>
+  <p><input type="checkbox" data-property-value="livingsocial" data-property-name="provider" class="showhide"checked/>LivingSocial
+  <a href="#" data-property-value="livingsocial" data-property-name="provider" class="bouncepins">bounce LS</a>
+  <a href="#" data-property-value="livingsocial" data-property-name="provider" class="stoppins">stopbounce LS</a></p>
   </p>
 
 
@@ -29,110 +29,12 @@
   <input type="text" id="filtered-dates" style="border:0; color:#f6931f; font-weight:bold;" />
 </p>
 
+<script type="text/javascript">
+  var Market = {
+    min_revenue: <%= @market.min_revenue %>,
+    max_revenue: <%= @market.max_revenue %>,
+    max_days:  <%= @market.days_for_selector %>
+  }
+</script>
+
 <%= gmaps(@gmap_options) %>
-<% content_for :scripts do %>
-  <script type="text/javascript" charset="utf-8">
-
-    console.log(Gmaps.map)
-    Gmaps.map.callback = function() {
-    }
-
-    $( "#revenue-range" ).slider({
-      range: true,
-      min: <%= @market.min_revenue %>,
-      max: <%= @market.max_revenue %>,
-      values: [ 0, <%= @market.max_revenue %> ],
-      slide: function(event, ui) {
-        filterPrice(ui.values[0],ui.values[1]);
-        $( "#filtered-rev" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-      }
-    });
-
-    $( "#date-range" ).slider({
-      range: true,
-      min: 0,
-      step: 1,
-      max: <%= @market.months_for_selector %>,
-      values: [ 0, <%= @market.months_for_selector %> ],
-      slide: function(event, ui) {
-        filterPrice(ui.values[0],ui.values[1])
-        $( "#filtered-dates" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-      }
-    });
-
-    function filterPrice(min,max){
-      for(x in Gmaps.map.markers) {
-        var marker= Gmaps.map.markers[x];
-        if(marker.revenue < min || marker.revenue > max){
-          Gmaps.map.hideMarker(marker);
-        }
-        else{
-          Gmaps.map.showMarker(marker);
-        }
-      }
-    }
-
-    function filterDate(min,max){
-      for(x in Gmaps.map.markers) {
-        var marker= Gmaps.map.markers[x];
-        if(marker.months_since < min || marker.months_since > max){
-          Gmaps.map.hideMarker(marker);
-        }
-        else{
-          Gmaps.map.showMarker(marker);
-        }
-      }
-    }
-
-
-
-
-
-    $("input.showhide:checkbox").click(function() {
-      var attribute = $(this).attr('prop');
-      var this_attr = $(this).attr('id');
-      for(x in Gmaps.map.markers) {
-        var marker= Gmaps.map.markers[x];
-        if(marker[attribute] == this_attr){
-          if($(this).attr('checked')){
-            Gmaps.map.showMarker(marker);}
-          else{
-            Gmaps.map.hideMarker(marker);}
-          }
-        }
-      })
-
-    $('#placeme').click(function() {
-      var lat = Gmaps.map.userLocation.$a;
-      var lng = Gmaps.map.userLocation.ab;
-      console.log(u)
-      Gmaps.map.createMarker({Lat: lat,
-                    Lng: lng,
-                    rich_marker: null,
-                    marker_picture: ""
-                   });
-      });
-
-    $('.bouncepins').click(function() {
-      var attribute = $(this).attr('prop')
-      var this_attr = $(this).attr('id')
-      for(x in Gmaps.map.markers) {
-        var marker= Gmaps.map.markers[x];
-        if(marker[attribute] == this_attr){
-          Gmaps.map.bounceMarker(marker);
-          }
-        }
-      })
-
-    $('.stoppins').click(function() {
-      var attribute = $(this).attr('prop')
-      var this_attr = $(this).attr('id')
-      for(x in Gmaps.map.markers) {
-        var marker= Gmaps.map.markers[x];
-        if(marker[attribute] == this_attr){
-          Gmaps.map.stopMarker(marker);
-          }
-        }
-      })
-  </script>
-<% end %>

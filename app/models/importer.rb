@@ -18,7 +18,8 @@ extend ApplicationHelper
               :latitude => row['latitude'],
               :longitude => row['longitude'],
               :website => row['merchant_website'],
-              :appearances =>row ['appearances'])
+              :appearances =>row['appearances'],
+              :phone => row['phone'])
 
       Deal.find_or_create_by_yipit_deal_id(
               :yipit_deal_id => row['id'],
