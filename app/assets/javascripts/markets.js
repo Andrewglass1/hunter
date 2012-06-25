@@ -43,11 +43,9 @@ $(document).ready(function() {
       if(marker.revenue < PriceRangeFilter.min || marker.revenue > PriceRangeFilter.max){
         Gmaps.map.hideMarker(marker);
       };
-
       if(marker.days_since < DateRangeFilter.recent || marker.days_since > DateRangeFilter.oldest){
         Gmaps.map.hideMarker(marker);
       }
-
       for(i in AllPropertyFilters){
         if(marker[AllPropertyFilters[i].name] == AllPropertyFilters[i].value && AllPropertyFilters[i].shouldShow == "unchecked"){
           Gmaps.map.hideMarker(marker);
@@ -81,7 +79,14 @@ $(document).ready(function() {
     }
   });
 
-
+  jQuery(function() {
+    return Gmaps.map.createMarker({
+      Lat: 136,
+      Lng: -70,
+      rich_marker: null,
+      marker_picture: ""
+    });
+  });
   $('#placeme').click(function() {
     var lat = Gmaps.map.userLocation.$a;
     var lng = Gmaps.map.userLocation.ab;
@@ -95,14 +100,12 @@ $(document).ready(function() {
   $('.bouncepins').click(function() {
     var propName       = $(this).data('property-name');
     var propValue      = $(this).data('property-value');
-
-    for(x in Gmaps.map.markers) {
-      var marker = Gmaps.map.markers[x];
-      
-      if(marker[propName] == propValue){
+    _.each(Gmaps.map.markers, function(marker) {
+      if(marker[propName] == propValue) {
         Gmaps.map.bounceMarker(marker);
+        setTimeout(function() { Gmaps.map.stopMarker(marker); }, 750 * 2);
       }
-    }
+    });
   });
 
   function dateToYMD(date){
@@ -111,17 +114,4 @@ $(document).ready(function() {
     var y = date.getFullYear();
     return '' + y +'-'+ (m<=9?'0'+m:m) +'-'+ (d<=9?'0'+d:d);
   };
-
-  $('.stoppins').click(function() {
-    var propName       = $(this).data('property-name');
-    var propValue      = $(this).data('property-value');
-
-    for(x in Gmaps.map.markers) {
-      var marker = Gmaps.map.markers[x];
-      
-      if(marker[propName] == propValue){
-        Gmaps.map.stopMarker(marker);
-      }
-    }
-  });
 });

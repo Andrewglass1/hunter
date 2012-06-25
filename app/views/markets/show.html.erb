@@ -3,17 +3,13 @@
 
 <% @market.merchants.map(&:zip).uniq[0..3].each do |zip| %>
   <p>
-  <input type="checkbox" data-property-value="<%=zip%>" data-property-name="zip" class="showhide"checked/><%= zip %>
-  <a href="#" data-property-value="<%=zip%>" data-property-name="zip" class="bouncepins">bounce <%= zip %></a>
-  <a href="#" data-property-value="<%=zip%>" data-property-name="zip" class="stoppins">stopbounce <%= zip %></a></p>
+  <input type="checkbox" data-property-value="<%=zip%>" data-property-name="zip" class="showhide"checked/><a href="#" data-property-value="<%=zip%>" data-property-name="zip" class="bouncepins"><%= zip %></a></p>
 <% end %>
 
-  <p><input type="checkbox" data-property-value="Groupon" data-property-name="provider" class="showhide"checked/>Groupon
-  <a href="#" data-property-value="Groupon" data-property-name="provider" class="bouncepins">bounce GPN</a>
-  <a href="#" data-property-value="Groupon" data-property-name="provider" class="stoppins">stopbounce GPN</a></p>
-  <p><input type="checkbox" data-property-value="livingsocial" data-property-name="provider" class="showhide"checked/>LivingSocial
-  <a href="#" data-property-value="livingsocial" data-property-name="provider" class="bouncepins">bounce LS</a>
-  <a href="#" data-property-value="livingsocial" data-property-name="provider" class="stoppins">stopbounce LS</a></p>
+  <p><input type="checkbox" data-property-value="Groupon" data-property-name="provider" class="showhide"checked/><a href="#" data-property-value="Groupon" data-property-name="provider" class="bouncepins">Groupon</a></p>
+
+  <p><input type="checkbox" data-property-value="livingsocial" data-property-name="provider" class="showhide"checked/>
+  <a href="#" data-property-value="livingsocial" data-property-name="provider" class="bouncepins">LivingSocial</a>
   </p>
 
 
