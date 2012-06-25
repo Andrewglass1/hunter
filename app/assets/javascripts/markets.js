@@ -34,24 +34,28 @@ $(document).ready(function() {
     applyAllFilters();
   });
 
-  var applyAllFilters = function(markers, filterList) {
+  var applyAllFilters = function() {
+    _.each(Gmaps.map.markers, function(marker) {
+      Gmaps.map.hideMarker(marker)
+    })
+    _.each(visibleMarkers(), function(marker) {
+      Gmaps.map.showMarker(marker)
+    })
+  };
 
-    for (i in Gmaps.map.markers) {
-      var marker = Gmaps.map.markers[i];
-      Gmaps.map.showMarker(marker);
-      console.log(PriceRangeFilter)
-      if(marker.revenue < PriceRangeFilter.min || marker.revenue > PriceRangeFilter.max){
-        Gmaps.map.hideMarker(marker);
-      };
-      if(marker.days_since < DateRangeFilter.recent || marker.days_since > DateRangeFilter.oldest){
-        Gmaps.map.hideMarker(marker);
-      }
-      for(i in AllPropertyFilters){
-        if(marker[AllPropertyFilters[i].name] == AllPropertyFilters[i].value && AllPropertyFilters[i].shouldShow == "unchecked"){
-          Gmaps.map.hideMarker(marker);
-        }
-      }
-    }
+  var visibleMarkers = function() {
+    var filtered = _.reject(Gmaps.map.markers, function(marker) {
+      return marker.revenue < PriceRangeFilter.min || marker.revenue > PriceRangeFilter.max;
+    });
+    filtered = _.reject(filtered, function(marker) {
+      return marker.days_since < DateRangeFilter.recent || marker.days_since > DateRangeFilter.oldest
+    });
+    _.each(AllPropertyFilters, function(filter){
+      filtered = _.reject(filtered, function(marker) {
+        return marker[filter.name] == filter.value && filter.shouldShow == "unchecked"
+      });
+    });
+    return filtered
   };
 
   var DateRangeFilter = {
