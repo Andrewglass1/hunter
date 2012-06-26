@@ -3,17 +3,15 @@ class MarketsController < ApplicationController
   include ApplicationHelper
   def show
     @market    = Market.find(params[:id])
-    @deals     = @market.deals
-    @json      = @deals.to_gmaps4rails do |deal, marker|
-      marker.infowindow render_to_string(:partial => "/deals/pop", :locals => { :deal => deal})
+    @json      = @market.merchants.to_gmaps4rails do |merchant, marker|
+      marker.infowindow render_to_string(:partial => "/merchants/pop", :locals => { :merchant => merchant})
       marker.picture({:color => "http://www.askeachother.com/images/uploads/large/2011-04-03-2713018_Amazon-logo-small.jpg",
                       :width   => 32,
                       :height  => 32})
-      marker.title   "#{deal.merchant.name}"
-      marker.sidebar "i'm the sidebar"
-      marker.json({ :revenue => deal.revenue, :run_with_ls => deal.merchant.run_with_ls?,
-                    :provider => deal.provider, :zip => deal.merchant.zip,
-                    :days_since => days_since(deal.date_added) })
+      marker.title   "#{merchant.name}"
+      marker.json({ :revenues => merchant.revenues, :run_with_ls => merchant.run_with_ls?,
+                    :run_with_gpn => merchant.run_with_gpn?, :zip => merchant.zip,
+                    :days_since => merchant.days_since_all_runs })
     end
 
     @gmap_options = {"map_options" => Map.map_options,

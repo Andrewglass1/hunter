@@ -1,8 +1,17 @@
-<h2><%= link_to merchant.name merchant_path(merchant) %></h2>
+<h2><%= merchant.name %></h2>
 <p><%= merchant.phone %></p>
-<p>Provider: <%= merchant.providers %></p>
-<p><%#= deal.date_added.strftime("Sold on %B %d, %Y") %>
+<p>Last Run: <%#= "#{merchant.deals.last.date_added.strftime("%B %d, %Y")} (#{merchant.deals.last.provider})" %></p>
+<p>Signed by: <%=merchant.providers_to_comma%><p>
+</br>
+</br>
 <% unless merchant.run_with_ls? %>
 <p>Merchant has never run with LS</p>
 <% end %>
-<a href="www.test.com">aaa</a>
+</br>
+</br>
+<% merchant.deals.each do |deal| %>
+<p><%= deal.short_title %></p>
+<p><%= deal.date_added.strftime("%B %d, %Y") %></p>
+<p><%="Sold #{deal.sold} @ #{number_to_currency(deal.price, :unit => '$')},Revenue: #{number_to_currency(deal.revenue, :unit => '$')}" %></p>
+<p>Provider: <%= deal.provider %></p>
+<% end %>

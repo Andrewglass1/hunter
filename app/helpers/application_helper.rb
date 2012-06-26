@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def days_since(old_date)
-    (Date.today - old_date).to_i + 2
+    (Date.today - old_date).to_i
   end
 
 

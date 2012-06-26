@@ -7,7 +7,6 @@ class Deal < ActiveRecord::Base
                   :deal_url, :latitude, :longitude
   
   after_create :standardize_provider
-  acts_as_gmappable :process_geocoding => false
 
   belongs_to :merchant
   belongs_to :market

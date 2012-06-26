@@ -46,10 +46,13 @@ $(document).ready(function() {
 
   var visibleMarkers = function() {
     var filtered = _.reject(Gmaps.map.markers, function(marker) {
-      return marker.revenue < PriceRangeFilter.min || marker.revenue > PriceRangeFilter.max;
+      return _.all(marker.revenues, function(revenue) {return revenue < PriceRangeFilter.min || revenue > PriceRangeFilter.max;
+      });
     });
+
     filtered = _.reject(filtered, function(marker) {
-      return marker.days_since < DateRangeFilter.recent || marker.days_since > DateRangeFilter.oldest
+      return _.all(marker.days_since, function(days) {return days < DateRangeFilter.recent || days > DateRangeFilter.oldest;
+      });
     });
     _.each(AllPropertyFilters, function(filter){
       filtered = _.reject(filtered, function(marker) {

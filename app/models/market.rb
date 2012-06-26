@@ -2,7 +2,7 @@ class Market < ActiveRecord::Base
   include ApplicationHelper
   attr_accessible :name
   has_many :deals
-  has_many :merchants, :through => :deals
+  has_many :merchants, :through => :deals, :uniq => true
 
   def total_month_rev(month, year)
   end
