@@ -28,3 +28,77 @@ body { padding-top: 60px; }
 // Example:
 // @linkColor: #ff0000;
 
+@whale: #262626;
+@spice: #eb3f3c;
+@honeycomb: #e9ba26;
+
+.well{
+  background-color: @whale !important;
+  margin:5px !important;
+  border-radius: 15px;
+}
+
+.sidebar_well {
+  min-height: 20px;
+  margin:5px;
+  padding: 8px;
+  margin-bottom: 16px;
+  background-color: #eeeeee;
+  border: 1px solid #eee;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 10px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+p {
+  font-family: "Arial Rounded MT", Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+
+
+
+#revenue-range {
+  width: 75%;
+  background: #eb3f3c;
+  color: blue;
+}
+#date-range {
+  width: 75%;
+  background: #eb3f3c;
+}
+
+.map_container {
+  width: 800px;
+  height: 700px;
+  padding: 10px;
+  .gmaps4rails_map{
+    width: 800px;
+    height: 700px;
+    border-radius: 15px;
+   }
+}
+
+#filtered-rev {
+  background:#eeeeee !important;
+  background-repeat: repeat;
+  margin: 1px 1px 1px 5px;
+  padding: 8px;
+  border: 0;
+  color: $spice;
+  font-weight:bold;
+}
+
+#filtered-dates {
+  background:#eeeeee !important;
+  background-repeat: repeat;
+  margin: 1px 1px 1px 5px;
+  padding: 8px;
+  border: 0;
+  color: $spice;
+  font-weight:bold;
+}
