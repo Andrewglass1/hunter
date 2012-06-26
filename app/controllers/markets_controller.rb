@@ -11,7 +11,7 @@ class MarketsController < ApplicationController
                       :height  => 32})
       marker.title   "#{deal.merchant.name}"
       marker.sidebar "i'm the sidebar"
-      marker.json({ :revenue => deal.revenue, :ls_merchant => deal.merchant.run_with_ls?,
+      marker.json({ :revenue => deal.revenue, :run_with_ls => deal.merchant.run_with_ls?,
                     :provider => deal.provider, :zip => deal.merchant.zip,
                     :days_since => days_since(deal.date_added) })
     end

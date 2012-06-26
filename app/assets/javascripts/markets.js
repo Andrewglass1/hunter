@@ -8,6 +8,7 @@ $(document).ready(function() {
     min: Market.min_revenue,
     max: Market.max_revenue,
   };
+  $( "#filtered-rev" ).val( "$" + PriceRangeFilter.min + " - $" + PriceRangeFilter.max );
 
   var AllPropertyFilters = [];
 
@@ -71,26 +72,24 @@ $(document).ready(function() {
     values: [ 0, Market.max_days ],
     slide: function(event, ui) {
       recent_day = Market.max_days - ui.values[1];
-      oldest_day = Market.max_days - ui.values[0]
+      oldest_day = Market.max_days - ui.values[0];
       DateRangeFilter.recent = recent_day;
       DateRangeFilter.oldest = oldest_day;
-      var old_date = new Date();
-        old_date.setDate(old_date.getDate() - oldest_day );
-      var recent_date = new Date();
-        recent_date.setDate(recent_date.getDate()-recent_day)
+      var old_date = calculateDate(oldest_day);
+      var recent_date = calculateDate(recent_day);
       $( "#filtered-dates" ).val( dateToYMD(old_date) + " - " + dateToYMD(recent_date) );
       applyAllFilters();
     }
   });
 
-  jQuery(function() {
-    return Gmaps.map.createMarker({
-      Lat: 136,
-      Lng: -70,
-      rich_marker: null,
-      marker_picture: ""
-    });
-  });
+  $("#filtered-dates").val(dateToYMD(calculateDate(Market.max_days)) + " - " + dateToYMD(calculateDate(0)))
+
+  function calculateDate(days){
+    date = new Date();
+    date.setDate(date.getDate() - days );
+    return date
+  };
+
   $('#placeme').click(function() {
     var lat = Gmaps.map.userLocation.$a;
     var lng = Gmaps.map.userLocation.ab;

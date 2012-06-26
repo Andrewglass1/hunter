@@ -11,6 +11,11 @@ group :assets do
   gem 'jquery-ui-rails'
 end
 
+group :test, :development do
+  gem "rspec-rails", "~> 2.0"
+  gem "capybara"
+end
+
 gem 'jquery-rails'
 gem 'gmaps4rails'
 gem 'therubyracer', '>= 0.8.2' 

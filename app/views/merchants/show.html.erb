@@ -1,20 +1,26 @@
-<%= @merchant.name %>
+<h1><%= @merchant.name %></h1>
+<h3><%= @merchant.address %></h3>
+<h3><%= "#{@merchant.city}, #{@merchant.zip} "%></h3>
+<h3><%= @merchant.phone %></h3>
 
 
-<table class="table table-striped">
+<h2>Run with: <%=@merchant.providers_to_comma%></h2>
+<h2>Total deal revenue: <%= number_to_currency(@merchant.total_revenue, :unit => "$") %></h2>
+
+<table class="table table-striped pretty">
   <thead>
     <tr>
       <th><%= sortable "short_title", "Title" %></th>
       <th><%= sortable "date_added", "Date" %></th>
-      <th><%= sortable "Category" %></th>
-      <th><%= sortable "Price" %></th>
-      <th><%= sortable "Revenue"%></th>
+      <th><%= sortable "category", "Category" %></th>
+      <th><%= sortable "price", "Price" %></th>
+      <th><%= sortable "revenue", "Revenue" %></th>
     </tr>
   </thead>
   <tbody>
     <% @deals.each do |deal| %>
     <tr>
-      <td><%= link_to deal.short_title, deal.deal_url %></td>
+      <td><%= link_to deal.short_title, deal.deal_url, :target => "blank" %></td>
       <td><%= deal.date_added %></td>
       <td><%= deal.category %></td>
       <td><%= number_to_currency(deal.price, :unit => "$") %></td>

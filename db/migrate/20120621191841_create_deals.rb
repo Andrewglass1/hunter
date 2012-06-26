@@ -15,8 +15,8 @@ class CreateDeals < ActiveRecord::Migration
       t.float :discount
       t.integer :sold
       t.string :sold_out
-      t.string :revenue
-      t.string :revenue_index
+      t.float :revenue
+      t.float :revenue_index
       t.string :deal_url
       t.string :category
       t.float :latitude
