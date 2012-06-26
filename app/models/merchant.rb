@@ -29,6 +29,10 @@ class Merchant < ActiveRecord::Base
     providers.include?("Groupon")
   end
 
+  def third_party_only?
+    !run_with_ls? && !run_with_gpn?
+  end
+
   def providers_to_comma
     if providers.compact.count == 1
       providers.first

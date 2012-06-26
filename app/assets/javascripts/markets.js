@@ -29,11 +29,20 @@ $(document).ready(function() {
     var name       = $(this).data('property-name');
     var value      = $(this).data('property-value');
     var shouldShow = $(this).attr('checked') || 'unchecked';
-    AllPropertyFilters = _.filter(AllPropertyFilters, function(propertyFilter){ return propertyFilter.value != value; });
+    AllPropertyFilters = _.filter(AllPropertyFilters, function(propertyFilter){ return propertyFilter.name != name; });
     var filter = {name: name, value: value, shouldShow: shouldShow}
     AllPropertyFilters.push(filter);
     applyAllFilters();
+    console.log(AllPropertyFilters);
   });
+
+  var findMiscreant = function() {
+    _.each(Gmaps.map.markers, function(marker){
+      if(marker.title == "PANORAMA Kids Studio"){
+        console.log(marker)
+      };
+    });
+  };
 
   var applyAllFilters = function() {
     _.each(Gmaps.map.markers, function(marker) {
@@ -120,4 +129,21 @@ $(document).ready(function() {
     var y = date.getFullYear();
     return '' + y +'-'+ (m<=9?'0'+m:m) +'-'+ (d<=9?'0'+d:d);
   };
+  
+  $("#sidebar_accordion").addClass("ui-accordion ui-accordion-icons ui-widget ui-helper-reset")
+  .find("h3")
+    .addClass("ui-accordion-header ui-helper-reset ui-state-default ui-corner-top ui-corner-bottom")
+    .hover(function() { $(this).toggleClass("ui-state-hover"); })
+    .prepend('<span class="ui-icon ui-icon-triangle-1-e"></span>')
+    .click(function() {
+      $(this)
+        .toggleClass("ui-accordion-header-active ui-state-active ui-state-default ui-corner-bottom")
+        .find("> .ui-icon").toggleClass("ui-icon-triangle-1-e ui-icon-triangle-1-s").end()
+        .next().toggleClass("ui-accordion-content-active").slideToggle();
+      return false;
+    })
+    .next()
+      .addClass("ui-accordion-content  ui-helper-reset ui-widget-content ui-corner-bottom")
+      .hide();
+
 });

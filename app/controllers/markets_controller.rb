@@ -10,7 +10,7 @@ class MarketsController < ApplicationController
                       :height  => 32})
       marker.title   "#{merchant.name}"
       marker.json({ :revenues => merchant.revenues, :run_with_ls => merchant.run_with_ls?,
-                    :run_with_gpn => merchant.run_with_gpn?, :zip => merchant.zip,
+                    :run_with_gpn => merchant.run_with_gpn?, :third_party => merchant.third_party_only?, :zip => merchant.zip,
                     :days_since => merchant.days_since_all_runs })
     end
 

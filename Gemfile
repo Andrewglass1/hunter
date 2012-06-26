@@ -21,3 +21,4 @@ gem 'gmaps4rails'
 gem 'therubyracer', '>= 0.8.2' 
 gem 'coffeebeans'
 gem "twitter-bootstrap-rails"
+gem "geocoder"

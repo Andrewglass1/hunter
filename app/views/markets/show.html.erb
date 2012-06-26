@@ -15,25 +15,49 @@
   <div class="row">
     <div class="well span12" >
       <div class="sidebar_well span3">
+          <div id="sidebar_accordion">
+            <h3><a href="#">Filter By Provider</a></h3>
+            <div>
+              <p><input type="checkbox" data-property-value="true" data-property-name="run_with_gpn" class="showhide"checked/><a href="#" data-property-value="true" data-property-name="run_with_gpn" class="bouncepins">  Groupon Merchants</a></p>
+              <p><input type="checkbox" data-property-value="true" data-property-name="run_with_ls" class="showhide"checked/><a href="#" data-property-value="true" data-property-name="run_with_ls" class="bouncepins">  LivingSocial Merchants</a></p>
+              <p><input type="checkbox" data-property-value="true" data-property-name="third_party" class="showhide"checked/><a href="#" data-property-value="true" data-property-name="third_party" class="bouncepins">  Only Run with Third Party</a></p>
+            </div>
+            <h3><a href="#">Filter By Revenue</a></h3>
+            <div>
+              <div id='revenue-range'></div>
+              <p>
+                <label for="filtered-rev">Filter by Revenue:</label>
+                <input type="text" id="filtered-rev" />
+              </p>
+            </div>
+            <h3><a href="#">Filter by Date</a></h3>
+            <div>
+              <div id='date-range'></div>
+              <p>
+                <label for="filtered-dates">Filter by Date:</label>
+                <input type="text" id="filtered-dates" />
+              </p>
+            </div>
+            <h3><a href="#">Filter By Zip</a></h3>
+            <div>
+              <% @market.merchants.map(&:zip).uniq[0..3].each do |zip| %>
+                <p><input type="checkbox" data-property-value="<%=zip%>" data-property-name="zip" class="showhide"checked/><a href="#" data-property-value="<%=zip%>" data-property-name="zip" class="bouncepins">   <%= zip %></a></p>
+              <% end %>
+            </div>
+            <h3><a href="#">Filter By Category</a></h3>
+            <div>
+
+            </div>
+          </div>
+
         <a href="#" id="placeme">Place me on map</a>
-        <% @market.merchants.map(&:zip).uniq[0..3].each do |zip| %>
-          <p><input type="checkbox" data-property-value="<%=zip%>" data-property-name="zip" class="showhide"checked/><a href="#" data-property-value="<%=zip%>" data-property-name="zip" class="bouncepins">   <%= zip %></a></p>
-        <% end %>
 
-        <p><input type="checkbox" data-property-value="true" data-property-name="run_with_gpn" class="showhide"checked/><a href="#" data-property-value="true" data-property-name="run_with_gpn" class="bouncepins">  Groupon Merchants</a></p>
-        <p><input type="checkbox" data-property-value="true" data-property-name="run_with_ls" class="showhide"checked/><a href="#" data-property-value="true" data-property-name="run_with_ls" class="bouncepins">  LivingSocial Merchants</a></p>
 
-        <div id='revenue-range'></div>
-        <p>
-          <label for="filtered-rev">Filter by Revenue:</label>
-          <input type="text" id="filtered-rev" />
-        </p>
+        
 
-        <div id='date-range'></div>
-        <p>
-          <label for="filtered-dates">Filter by Date:</label>
-          <input type="text" id="filtered-dates" />
-        </p>
+
+
+
       </div>
       <div class="span8"><%= gmaps(@gmap_options) %></div>
       </div>

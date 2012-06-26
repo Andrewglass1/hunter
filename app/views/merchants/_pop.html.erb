@@ -11,7 +11,7 @@
 </br>
 <% merchant.deals.each do |deal| %>
 <p><%= deal.short_title %></p>
-<p><%= deal.date_added.strftime("%B %d, %Y") %></p>
+<p><%= deal.date_added.strftime("%B %d, %Y") if deal.date_added %></p>
 <p><%="Sold #{deal.sold} @ #{number_to_currency(deal.price, :unit => '$')},Revenue: #{number_to_currency(deal.revenue, :unit => '$')}" %></p>
 <p>Provider: <%= deal.provider %></p>
 <% end %>
