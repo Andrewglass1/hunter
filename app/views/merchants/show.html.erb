@@ -1,0 +1,25 @@
+<%= @merchant.name %>
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= sortable "short_title", "Title" %></th>
+      <th><%= sortable "date_added", "Date" %></th>
+      <th><%= sortable "Category" %></th>
+      <th><%= sortable "Price" %></th>
+      <th><%= sortable "Revenue"%></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @deals.each do |deal| %>
+    <tr>
+      <td><%= link_to deal.short_title, deal.deal_url %></td>
+      <td><%= deal.date_added %></td>
+      <td><%= deal.category %></td>
+      <td><%= number_to_currency(deal.price, :unit => "$") %></td>
+      <td><%= number_to_currency(deal.revenue, :unit => "$") %></td>
+    <% end %>
+    </tr>
+  </tbody>
+</table>

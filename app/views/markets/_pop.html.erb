@@ -1,0 +1,14 @@
+<h2><%= deal.merchant.name %></h2>
+<p><%= deal.merchant.phone %></p>
+<p><%= days_since(deal.date_added) %></p>
+<p><%= deal.short_title %></p>
+<p>Revenue: $<%= deal.revenue %></p>
+<p>Provider: <%= deal.provider %></p>
+<p><%= deal.date_added.strftime("Sold on %B %d, %Y") %>
+<% unless deal.merchant.run_with_ls? %>
+<p>Merchant has never run with LS</p>
+<% end %>
+
+<% if deal.merchant_deal_count > 1 %>
+  <%= link_to "view other #{deal.merchant_deal_count -1} deals", merchant_path(merchant) %>
+<% end %>

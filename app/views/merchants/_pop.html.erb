@@ -1,0 +1,8 @@
+<h2><%= link_to merchant.name merchant_path(merchant) %></h2>
+<p><%= merchant.phone %></p>
+<p>Provider: <%= merchant.providers %></p>
+<p><%#= deal.date_added.strftime("Sold on %B %d, %Y") %>
+<% unless merchant.run_with_ls? %>
+<p>Merchant has never run with LS</p>
+<% end %>
+<a href="www.test.com">aaa</a>

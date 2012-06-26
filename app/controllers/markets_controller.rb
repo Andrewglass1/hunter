@@ -3,7 +3,6 @@ class MarketsController < ApplicationController
   include ApplicationHelper
   def show
     @market    = Market.find(params[:id])
-    @merchants = @market.merchants
     @deals     = @market.deals
     @json      = @deals.to_gmaps4rails do |deal, marker|
       marker.infowindow render_to_string(:partial => "/deals/pop", :locals => { :deal => deal})
