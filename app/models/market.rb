@@ -5,6 +5,7 @@ class Market < ActiveRecord::Base
   has_many :merchants, :through => :deals, :uniq => true
   has_many :user_markets
   has_many :users, :through => :user_markets
+  has_many :csa_zips
 
   after_create :calculate_lat_long
 
@@ -27,6 +28,10 @@ class Market < ActiveRecord::Base
   def calculate_lat_long
     lat_long = Geocoder.coordinates(name)
     self.update_attributes(:latitude => lat_long[0], :longitude => lat_long[1])
+  end
+
+  def all_csa_zipcodes
+    csa_zips.collect {|csazip| csazip.csa_zipcode}
   end
 end
 

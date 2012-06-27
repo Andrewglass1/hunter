@@ -33,6 +33,9 @@
             </div>
             <h3><a href="#">Filter By Zip</a></h3>
             <div>
+              <p><input type="checkbox" data-property-value="CSA" data-property-name="csa" class="showhide"checked/><a href="#" data-property-value="CSA" data-property-name="csa" class="bouncepins">In CSA</a></p>
+              <p><input type="checkbox" data-property-value="outsideCSA" data-property-name="csa" class="showhide"checked/><a href="#" data-property-value="outsideCSA" data-property-name="csa" class="bouncepins">In CSA</a></p>
+
               <% @market.merchants.map(&:zip).uniq[0..3].each do |zip| %>
                 <p><input type="checkbox" data-property-value="<%=zip%>" data-property-name="zip" class="showhide"checked/><a href="#" data-property-value="<%=zip%>" data-property-name="zip" class="bouncepins">   <%= zip %></a></p>
               <% end %>
@@ -47,12 +50,6 @@
         <%= link_to "View All Markets", markets_path %>
         <%= link_to "Set My Markets", user_path(current_user) %>
 
-
-        
-
-
-
-
       </div>
       <div class="span8"><%= gmaps(@gmap_options) %></div>
       </div>
@@ -61,14 +58,13 @@
 </div>
 
 
-
-
 <script type="text/javascript">
   var Market = {
     min_revenue: <%= @market.min_revenue %>,
     max_revenue: <%= @market.max_revenue %>,
     max_days:  <%= @market.days_for_selector %>
   }
+
 </script>
 
 

@@ -55,6 +55,14 @@ class Merchant < ActiveRecord::Base
     deals.map(&:revenue).compact.sum
   end
 
+  def in_csa
+    if deals.first.market.all_csa_zipcodes.include?(zip)
+      "CSA"
+    else
+      "outsideCSA"
+    end
+  end
+
 end
 
 

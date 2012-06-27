@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120627150252) do
+ActiveRecord::Schema.define(:version => 20120627182530) do
+
+  create_table "csa_zips", :force => true do |t|
+    t.integer  "market_id"
+    t.string   "csa_zipcode"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "deals", :force => true do |t|
     t.integer  "merchant_id"

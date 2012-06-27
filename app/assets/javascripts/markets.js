@@ -29,7 +29,7 @@ $(document).ready(function() {
     var name       = $(this).data('property-name');
     var value      = $(this).data('property-value');
     var shouldShow = $(this).attr('checked') || 'unchecked';
-    AllPropertyFilters = _.filter(AllPropertyFilters, function(propertyFilter){ return propertyFilter.name != name; });
+    AllPropertyFilters = _.filter(AllPropertyFilters, function(propertyFilter){ return propertyFilter.value != value; });
     var filter = {name: name, value: value, shouldShow: shouldShow}
     AllPropertyFilters.push(filter);
     applyAllFilters();

@@ -46,4 +46,16 @@ extend ApplicationHelper
     end
   end
 
+  def self.import_csa_zips
+    csv_text = File.read('/Users/andrewglass/Desktop/el_paso_csa.csv')
+    csv = CSV.parse(csv_text, {:headers => true, :header_converters => :symbol})
+    csv.each do |row|
+      row = row.to_hash.with_indifferent_access
+      market   = Market.find_or_create_by_name(row['name'])
+      if row['csa'] == "Y"
+        CsaZip.create(csa_zipcode: row['zip'], market_id: market.id)
+      end
+    end
+  end
+
 end
