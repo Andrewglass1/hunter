@@ -33,9 +33,23 @@ $(document).ready(function() {
     var filter = {name: name, value: value, shouldShow: shouldShow}
     AllPropertyFilters.push(filter);
     applyAllFilters();
-    console.log(AllPropertyFilters);
   });
 
+  $(".chzn-select").chosen();
+
+  var CategoryFilter = [];
+
+  var ZipFilter = [];
+
+  $("#categories").change(function(){
+    CategoryFilter = $(this).val();
+    applyAllFilters();
+  });
+
+  $("#zips").change(function(){
+    ZipFilter = $(this).val();
+    applyAllFilters();
+  });
 
   var applyAllFilters = function() {
     _.each(Gmaps.map.markers, function(marker) {
@@ -51,11 +65,27 @@ $(document).ready(function() {
       return _.all(marker.revenues, function(revenue) {return revenue < PriceRangeFilter.min || revenue > PriceRangeFilter.max;
       });
     });
-
     filtered = _.reject(filtered, function(marker) {
       return _.all(marker.days_since, function(days) {return days < DateRangeFilter.recent || days > DateRangeFilter.oldest;
       });
     });
+    if(CategoryFilter && CategoryFilter.length) {
+      filtered = _.reject(filtered, function(marker) {
+        return _.all(marker.categories, function(category) {
+          return _.all(CategoryFilter, function(filterCategory){
+            return filterCategory != category
+          });
+        });
+      });
+    }
+    if(ZipFilter && ZipFilter.length) {
+      filtered = _.reject(filtered, function(marker) {
+        return _.all(ZipFilter, function(filterZip){
+          return filterZip != marker.zip
+        });
+      });
+    };
+
     _.each(AllPropertyFilters, function(filter){
       filtered = _.reject(filtered, function(marker) {
         return marker[filter.name] == filter.value && filter.shouldShow == "unchecked"
@@ -115,6 +145,7 @@ $(document).ready(function() {
       }
     });
   });
+
 
   function dateToYMD(date){
     var d = date.getDate();

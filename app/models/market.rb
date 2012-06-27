@@ -33,5 +33,13 @@ class Market < ActiveRecord::Base
   def all_csa_zipcodes
     csa_zips.collect {|csazip| csazip.csa_zipcode}
   end
+
+  def categories
+    deals.map(&:category).uniq
+  end
+
+  def zips
+    merchants.map(&:zip).uniq
+  end
 end
 

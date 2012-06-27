@@ -27,3 +27,4 @@ gem "twitter-bootstrap-rails"
 gem "geocoder"
 gem 'devise'
 gem 'omniauth'
+gem 'chosen-rails'

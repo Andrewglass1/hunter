@@ -16,6 +16,10 @@ class Merchant < ActiveRecord::Base
     deals.map(&:revenue).uniq.compact
   end
 
+  def categories
+    deals.map(&:category).uniq.compact
+  end
+
   def days_since_all_runs
     all_run_dates = deals.map(&:date_added).uniq.compact
     all_run_dates.collect{|date| days_since(date)}

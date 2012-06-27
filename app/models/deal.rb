@@ -7,6 +7,7 @@ class Deal < ActiveRecord::Base
                   :deal_url, :latitude, :longitude
   
   after_create :standardize_provider
+  after_create :remove_bad_categories
 
   belongs_to :merchant
   belongs_to :market
@@ -22,4 +23,5 @@ class Deal < ActiveRecord::Base
       self.update_attribute(:provider, "Groupon")
     end
   end
+
 end
