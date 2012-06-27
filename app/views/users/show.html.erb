@@ -1,0 +1,29 @@
+</br>
+</br>
+
+<div class="span8 offset2">
+<% if @user.markets.blank? %>
+<h1> Sign up for Your Markets <%= link_to "Here", markets_path %></h1>
+
+<% else %>
+
+
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th><h1>Market</h1></th>
+        <th><h1>Remove</h1></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user.markets.each do |market| %>
+      <tr>
+        <td><h2><%= link_to market.name, market_path(market) %></h2></td>
+        <td><%= link_to 'Remove from My Markets', current_user.user_markets.find_by_market_id(market.id), :method => :delete, :class => 'btn btn-mini' %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<% end %>

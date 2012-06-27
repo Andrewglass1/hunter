@@ -14,6 +14,9 @@ end
 group :test, :development do
   gem "rspec-rails", "~> 2.0"
   gem "capybara"
+  gem 'simplecov'
+  gem 'guard'
+  gem 'jasmine'
 end
 
 gem 'jquery-rails'
@@ -22,3 +25,5 @@ gem 'therubyracer', '>= 0.8.2'
 gem 'coffeebeans'
 gem "twitter-bootstrap-rails"
 gem "geocoder"
+gem 'devise'
+gem 'omniauth'

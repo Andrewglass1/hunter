@@ -3,18 +3,11 @@
 </br>
 
 <div class="container">
-  <div class= "row">
-    <div class="span12">
-      <h1><%= @market.name %> 
-          </br>
-          </br>
-      </h1>
-    </div>
-  </div>
-  
   <div class="row">
     <div class="well span12" >
+      <h1 class="market_title"><%= @market.name %></h1>
       <div class="sidebar_well span3">
+
           <div id="sidebar_accordion">
             <h3><a href="#">Filter By Provider</a></h3>
             <div>
@@ -51,6 +44,8 @@
           </div>
 
         <a href="#" id="placeme">Place me on map</a>
+        <%= link_to "View All Markets", markets_path %>
+        <%= link_to "Set My Markets", user_path(current_user) %>
 
 
         

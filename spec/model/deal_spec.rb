@@ -13,9 +13,14 @@ describe Deal do
 
   describe "#standardize_provider" do
     let!(:deal2) { Deal.create(merchant_id: merchant.id, provider: "Living Social", revenue: 50)}
+    let!(:deal3) { Deal.create(merchant_id: merchant.id, provider: "Groupon Live", revenue: 50)}
     it "returns the correct format for a livingsocial deal" do
       deal2.standardize_provider
       deal2.provider.should == "livingsocial"
+    end
+    it "returns the correct format for a Groupon deal" do
+      deal3.standardize_provider
+      deal3.provider.should == "Groupon"
     end
   end
 end

@@ -3,6 +3,8 @@ class Market < ActiveRecord::Base
   attr_accessible :name, :latitude, :longitude
   has_many :deals
   has_many :merchants, :through => :deals, :uniq => true
+  has_many :user_markets
+  has_many :users, :through => :user_markets
 
   after_create :calculate_lat_long
 

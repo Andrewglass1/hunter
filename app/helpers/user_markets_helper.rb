@@ -1,0 +1,2 @@
+module UserMarketsHelper
+end

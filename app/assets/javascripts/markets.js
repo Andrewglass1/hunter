@@ -36,13 +36,6 @@ $(document).ready(function() {
     console.log(AllPropertyFilters);
   });
 
-  var findMiscreant = function() {
-    _.each(Gmaps.map.markers, function(marker){
-      if(marker.title == "PANORAMA Kids Studio"){
-        console.log(marker)
-      };
-    });
-  };
 
   var applyAllFilters = function() {
     _.each(Gmaps.map.markers, function(marker) {

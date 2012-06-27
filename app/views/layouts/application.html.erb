@@ -7,6 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
@@ -18,8 +19,18 @@
       <a class="brand" href="#">Merchant Hunter</a>
       <div class="nav-collapse">
         <ul class="nav">
-          <li><%= link_to "View Markets", markets_path %></li>
+          <% current_user.markets.each do |market| %>
+          <li><%= link_to market.name, market_path(market) %></li>
+          <% end %>
         </ul>
+      </div>
+      <div id="user_nav">
+        <% if user_signed_in? %>
+          Signed in as <%= current_user.email %>. Not you?
+          <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+        <% else %>
+          <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+        <% end %>
       </div>
     </div>
   </div>
