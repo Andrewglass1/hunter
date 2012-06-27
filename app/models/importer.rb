@@ -6,7 +6,6 @@ extend ApplicationHelper
     csv_text = File.read('/Users/andrewglass/Desktop/el_paso.csv')
     csv = CSV.parse(csv_text, {:headers => true, :header_converters => :symbol})
     csv.each do |row|
-
       row = row.to_hash.with_indifferent_access
       market   = Market.find_or_create_by_name(row['division'])
       if Geocoder::Calculations.distance_between([market.latitude, market.longitude],[row['latitude'],row['longitude']]) < 55
@@ -28,8 +27,8 @@ extend ApplicationHelper
                 :market_id => market.id,
                 :merchant_id => merchant.id,
                 :category => row['category'],
-                :date_added => row['date_added'],
-                :date_ended => row['date_ended'],
+                :date_added => Date.strptime(row['date_added'], "%m/%d/%Y"),
+                :date_ended => Date.strptime(row['date_ended'], "%m/%d/%Y"),
                 :deal_url => row['deal_url'],
                 :discount => row['discount'],
                 :full_title => row['full_title'],

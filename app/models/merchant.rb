@@ -37,8 +37,18 @@ class Merchant < ActiveRecord::Base
     if providers.compact.count == 1
       providers.first
     else
-      providers.compact.collect { |provider| provider }.join(",")
+      providers.compact.collect { |provider| provider }.join(", ")
     end
+  end
+
+  def most_recent_run_date
+    deals_sorted = deals.sort_by &:date_added
+    deals_sorted.last.date_added
+  end
+
+  def most_recent_provider
+    deals_sorted = deals.sort_by &:date_added
+    deals_sorted.last.provider
   end
 
   def total_revenue
