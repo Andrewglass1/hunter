@@ -8,6 +8,10 @@ class Merchant < ActiveRecord::Base
   acts_as_gmappable :process_geocoding => false
 
 
+  def market
+    deals.first.market
+  end
+
   def providers
     deals.map(&:provider).uniq.compact
   end
@@ -60,13 +64,12 @@ class Merchant < ActiveRecord::Base
   end
 
   def in_csa
-    if deals.first.market.all_csa_zipcodes.include?(zip)
+    if market.all_csa_zipcodes.include?(zip)
       "CSA"
     else
       "outsideCSA"
     end
   end
-
 end
 
 

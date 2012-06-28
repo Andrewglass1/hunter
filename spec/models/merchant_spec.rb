@@ -2,8 +2,8 @@ require 'spec_helper'
 describe Merchant do
 
   let!(:merchant) { Merchant.create(name: "test") }
-  let!(:deal) { Deal.create(merchant_id: merchant.id, provider: "livingsocial", revenue: 50, date_added: Date.strptime("10/04/1988", "%m/%d/%Y"))}
-  let!(:deal1) { Deal.create(merchant_id: merchant.id, provider: "poop-on", revenue: 5, date_added: Date.strptime("10/04/2005", "%m/%d/%Y"))}
+  let!(:deal) { Deal.create(merchant_id: merchant.id, category: "deal_category1", provider: "livingsocial", revenue: 50, date_added: Date.strptime("10/04/1988", "%m/%d/%Y"))}
+  let!(:deal1) { Deal.create(merchant_id: merchant.id, category: "deal_category2", provider: "poop-on", revenue: 5, date_added: Date.strptime("10/04/2005", "%m/%d/%Y"))}
 
   describe "#providers" do
     it "returns an array with the merchants deal providers" do
@@ -25,6 +25,21 @@ describe Merchant do
     it "should return an Array of numbers" do
       merchant.revenues.each do |revenue|
         revenue.class.should == Float
+      end
+    end
+  end
+
+  describe "#categories" do
+    it "returns an array with the merchants deal categories" do
+        merchant.categories.class.should == Array
+    end
+    it "should return an Array of two for a merchant with two deals with categories" do
+      merchant.categories.count.should == 2
+    end
+
+    it "should return the categories of the deals as strings" do
+      merchant.categories.each do |category|
+        category.class.should == String
       end
     end
   end
@@ -92,6 +107,13 @@ describe Merchant do
       merchant.total_revenue.should == 55
     end
   end
+
+  # describe "#in_csa" do
+  #   it "should return a string" do
+  #     raise merchant.in_csa.inspect
+  #   end
+  # end
+
 end
 
 

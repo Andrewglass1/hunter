@@ -1,6 +1,11 @@
 class MarketsController < ApplicationController
   extend Map
   include ApplicationHelper
+
+  before_filter do
+    authenticate_user! rescue redirect_to root
+  end
+
   def show
     @market    = Market.find(params[:id])
     @json      = @market.merchants.to_gmaps4rails do |merchant, marker|

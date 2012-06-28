@@ -19,8 +19,10 @@
       <a class="brand" href="#">Merchant Hunter</a>
       <div class="nav-collapse">
         <ul class="nav">
-          <% current_user.markets.each do |market| %>
-          <li><%= link_to market.name, market_path(market) %></li>
+          <% if current_user %>
+            <% current_user.markets.each do |market| %>
+            <li><%= link_to market.name, market_path(market) %></li>
+            <% end %>
           <% end %>
         </ul>
       </div>
