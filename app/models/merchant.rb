@@ -49,14 +49,17 @@ class Merchant < ActiveRecord::Base
     end
   end
 
+  def deals_sorted
+    (deals.sort_by &:date_added).reverse
+  end
+
+
   def most_recent_run_date
-    deals_sorted = deals.sort_by &:date_added
-    deals_sorted.last.date_added
+    deals_sorted.first.date_added
   end
 
   def most_recent_provider
-    deals_sorted = deals.sort_by &:date_added
-    deals_sorted.last.provider
+    deals_sorted.first.provider
   end
 
   def total_revenue
@@ -69,6 +72,12 @@ class Merchant < ActiveRecord::Base
     else
       "outsideCSA"
     end
+  end
+
+  def sfdc_url
+    base_url = "https://na10.salesforce.com/_ui/common/search/client/ui/UnifiedSearchResults?searchType=2#!/fen=001&initialViewMode=detail&str="
+    search = "#{name}%20#{city}".gsub(".","").gsub(",","").gsub("'","").gsub(" ","%20")
+    base_url+search
   end
 end
 

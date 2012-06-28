@@ -1,13 +1,14 @@
-<h2><%= link_to merchant.name, merchant_path(merchant) %></h2>
-<h3><%= link_to "Search SalesForce", "#" %></h3>
-<p><%= merchant.phone %></p>
+<h2><%= link_to merchant.name, merchant_path(merchant), :target => "_blank" %></h2>
+<h3><%= link_to "Find on Salesforce", merchant.sfdc_url, :target => "_blank" %></h3>
+<p>Phone: <%= merchant.phone %></p>
+<p><%= link_to merchant.website, merchant.website, :target => "_blank" if merchant.website != "N/A" %></p>
 <p>Last Run: <%= "#{merchant.most_recent_run_date.strftime("%B %d, %Y") } (#{merchant.most_recent_provider})" %></p>
 <p>Has Run With: <%=merchant.providers_to_comma%><p>
 <hr>
 
-<% merchant.deals.each do |deal| %>
+<% merchant.deals_sorted.each do |deal| %>
 <p><%= deal.date_added.strftime("%B %d, %Y") if deal.date_added %></p>
-<p><%= "#{deal.provider} : #{deal.short_title}" %></p>
-<p><%="Sold #{deal.sold} @ #{number_to_currency(deal.price, :unit => '$')},Revenue: #{number_to_currency(deal.revenue, :unit => '$')}" %></p>
+<p><%= link_to "#{deal.provider} : #{deal.short_title}", deal.deal_url, :target => "_blank" %></p>
+<p><%="Revenue: #{number_to_currency(deal.revenue, :unit => '$')}...Sold #{deal.sold} @ #{number_to_currency(deal.price, :unit => '$')}"%></p>
 <hr>
 <% end %>

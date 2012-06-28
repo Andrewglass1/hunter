@@ -21,7 +21,7 @@ $(document).ready(function() {
         PriceRangeFilter.min = ui.values[0];
         PriceRangeFilter.max = ui.values[1];
         applyAllFilters();
-        $( "#filtered-rev" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+        $( "#filtered-rev" ).val( '$' +(ui.values[ 0 ]).formatMoney(0, '.', ',') + " - $" + (ui.values[ 1 ]).formatMoney(0, '.', ',') );
       }
     });
 
@@ -87,7 +87,14 @@ $(document).ready(function() {
     };
 
     _.each(AllPropertyFilters, function(filter){
+      console.log(AllPropertyFilters[0])
+      console.log(AllPropertyFilters[0].name)
+      console.log(AllPropertyFilters[0].value)
+      console.log(AllPropertyFilters[0].shouldShow)
+
+
       filtered = _.reject(filtered, function(marker) {
+        console.log(marker[filter.name] == filter.value && filter.shouldShow == "unchecked")
         return marker[filter.name] == filter.value && filter.shouldShow == "unchecked"
       });
     });
@@ -146,12 +153,13 @@ $(document).ready(function() {
     });
   });
 
+  Number.prototype.formatMoney = function(c, d, t){
+  var n = this, c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
+     return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+   };
 
   function dateToYMD(date){
-    var d = date.getDate();
-    var m = date.getMonth()+1;
-    var y = date.getFullYear();
-    return '' + y +'-'+ (m<=9?'0'+m:m) +'-'+ (d<=9?'0'+d:d);
+    return $.datepicker.formatDate('M dd yy', date);
   };
   
   $("#sidebar_accordion").addClass("ui-accordion ui-accordion-icons ui-widget ui-helper-reset")

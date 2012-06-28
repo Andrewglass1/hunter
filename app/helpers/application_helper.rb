@@ -1,10 +1,14 @@
+# -*- encoding : utf-8 -*-
+
 module ApplicationHelper
 
   def days_since(old_date)
     (Date.today - old_date).to_i
   end
 
-
+  def clean_characters(input)
+  	input.gsub("â€™","'").gsub("â€œ","").gsub("&"," and ").gsub("  "," ").gsub("Ã±o","ñ")
+  end
 
   def sortable(column, title = nil)
     title ||= column.titleize
