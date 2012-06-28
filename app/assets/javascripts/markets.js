@@ -29,7 +29,7 @@ $(document).ready(function() {
     var name       = $(this).data('property-name');
     var value      = $(this).data('property-value');
     var shouldShow = $(this).attr('checked') || 'unchecked';
-    AllPropertyFilters = _.filter(AllPropertyFilters, function(propertyFilter){ return propertyFilter.value != value; });
+    AllPropertyFilters = _.filter(AllPropertyFilters, function(propertyFilter){ return propertyFilter.name != name; });
     var filter = {name: name, value: value, shouldShow: shouldShow}
     AllPropertyFilters.push(filter);
     applyAllFilters();
@@ -69,6 +69,7 @@ $(document).ready(function() {
       return _.all(marker.days_since, function(days) {return days < DateRangeFilter.recent || days > DateRangeFilter.oldest;
       });
     });
+
     if(CategoryFilter && CategoryFilter.length) {
       filtered = _.reject(filtered, function(marker) {
         return _.all(marker.categories, function(category) {
@@ -78,6 +79,7 @@ $(document).ready(function() {
         });
       });
     }
+
     if(ZipFilter && ZipFilter.length) {
       filtered = _.reject(filtered, function(marker) {
         return _.all(ZipFilter, function(filterZip){
@@ -86,15 +88,9 @@ $(document).ready(function() {
       });
     };
 
+    console.log(AllPropertyFilters)
     _.each(AllPropertyFilters, function(filter){
-      console.log(AllPropertyFilters[0])
-      console.log(AllPropertyFilters[0].name)
-      console.log(AllPropertyFilters[0].value)
-      console.log(AllPropertyFilters[0].shouldShow)
-
-
       filtered = _.reject(filtered, function(marker) {
-        console.log(marker[filter.name] == filter.value && filter.shouldShow == "unchecked")
         return marker[filter.name] == filter.value && filter.shouldShow == "unchecked"
       });
     });

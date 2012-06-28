@@ -9,7 +9,7 @@ extend ApplicationHelper
     csv.each do |row|
       row = row.to_hash.with_indifferent_access
       market   = Market.find_or_create_by_name(row['division'])
-      if Geocoder::Calculations.distance_between([market.latitude, market.longitude],[row['latitude'],row['longitude']]) < 55
+      if Geocoder::Calculations.distance_between([market.latitude, market.longitude],[row['latitude'],row['longitude']]) < 75
 
         merchant = Merchant.find_or_create_by_yipit_merchant_id(
                 :address => row['address'],

@@ -7,7 +7,9 @@ module ApplicationHelper
   end
 
   def clean_characters(input)
-  	input.gsub("â€™","'").gsub("â€œ","").gsub("&"," and ").gsub("  "," ").gsub("Ã±o","ñ")
+    unless input.nil?
+  	  input.gsub("â€™","'").gsub("â€œ","").gsub("&"," and ").gsub("  "," ").gsub("Ã±o","ñ")
+    end
   end
 
   def sortable(column, title = nil)
