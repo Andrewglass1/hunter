@@ -46,15 +46,22 @@ $(document).ready(function() {
 
 
 //resets
-  $('.zip-reset').click(function() {
+  $('.zip-reset').click(function(){
+    clearZips()
+  });
+
+  var clearZips = function() {
+    console.log("itoman")
     $(".chzn-select-zips").val('').trigger("liszt:updated");
-    ZipFilter = $(this).val();
+    ZipFilter = []
+    console.log(ZipFilter)
     $('#zip-boxes .showhide').prop("checked", true);
     _.each($('#zip-boxes .showhide'),function(box){
       AllPropertyFilters = _.filter(AllPropertyFilters, function(propertyFilter){ return propertyFilter.name != $(box).attr('data-property-name'); });
     });
     applyAllFilters();
-  });
+
+  }
 
   $('.category-reset').click(function() {
     $(".chzn-select-categories").val('').trigger("liszt:updated");
