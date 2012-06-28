@@ -46,6 +46,16 @@ $(document).ready(function() {
 
 
 //resets
+
+  $('.filters-reset').click(function(){
+    clearZips();
+    clearCategories();
+    clearProviders();
+    clearRevenue();
+    clearDates();
+  });
+
+
   $('.zip-reset').click(function(){
     clearZips()
   });
@@ -53,47 +63,62 @@ $(document).ready(function() {
   var clearZips = function() {
     console.log("itoman")
     $(".chzn-select-zips").val('').trigger("liszt:updated");
-    ZipFilter = []
+    ZipFilter = [];
     console.log(ZipFilter)
     $('#zip-boxes .showhide').prop("checked", true);
     _.each($('#zip-boxes .showhide'),function(box){
       AllPropertyFilters = _.filter(AllPropertyFilters, function(propertyFilter){ return propertyFilter.name != $(box).attr('data-property-name'); });
     });
     applyAllFilters();
-
   }
 
   $('.category-reset').click(function() {
-    $(".chzn-select-categories").val('').trigger("liszt:updated");
-    CategoryFilter = $(this).val();
-    applyAllFilters();
+    clearCategories();
   });
 
-  $('.provider-reset').click(function(event) {
+  var clearCategories = function() {
+    $(".chzn-select-categories").val('').trigger("liszt:updated");
+    CategoryFilter = [];
+    applyAllFilters();
+  }
+
+  $('.provider-reset').click(function() {
+    clearProviders();
+  });
+
+  var clearProviders = function() {
     $('#provider-boxes .showhide').prop("checked", true);
     _.each($('#provider-boxes .showhide'),function(box){
       AllPropertyFilters = _.filter(AllPropertyFilters, function(propertyFilter){ return propertyFilter.name != $(box).attr('data-property-name'); });
     });
     applyAllFilters();
-  });
+  }
 
   $('.revenue-reset').click(function() {
+    clearRevenue();
+  });
+
+  var clearRevenue = function() {
     $("#revenue-range").slider("values", 0, Market.min_revenue);
     $("#revenue-range").slider("values", 1, Market.max_revenue);
     PriceRangeFilter.min = Market.min_revenue;
     PriceRangeFilter.max = Market.max_revenue;
     $( "#filtered-rev" ).val( "$" + PriceRangeFilter.min + " - $" + PriceRangeFilter.max );
     applyAllFilters();
-  });
+  }
 
   $('.date-reset').click(function() {
+    clearDates();
+  });
+
+  var clearDates = function() {
     $("#date-range").slider("values", 0, 0);
     $("#date-range").slider("values", 1, Market.max_days);
     DateRangeFilter.recent = 0;
     DateRangeFilter.oldest = Market.max_days;
     $("#filtered-dates").val(dateToYMD(calculateDate(Market.max_days)) + " - " + dateToYMD(calculateDate(0)));
     applyAllFilters();
-  });
+  }
 
 // dates
 
