@@ -7,13 +7,15 @@
     <div class="well span12" >
       <h1 class="market_title"><%= @market.name %></h1>
       <div class="sidebar_well span3">
-
+          <h3 class="deals-returned"><%=@market.merchants.count %> Merchants Returned</h3>
+          <a class="revenue-reset">Clear All Filters</a>
           <div id="sidebar_accordion">
             <h3><a href="#">Filter By Provider</a></h3>
-            <div>
-              <p><input type="checkbox" data-property-value="true" data-property-name="run_with_gpn" class="showhide"checked/><a href="#" data-property-value="true" data-property-name="run_with_gpn" class="bouncepins">  Groupon Merchants</a></p>
-              <p><input type="checkbox" data-property-value="true" data-property-name="run_with_ls" class="showhide"checked/><a href="#" data-property-value="true" data-property-name="run_with_ls" class="bouncepins">  LivingSocial Merchants</a></p>
-              <p><input type="checkbox" data-property-value="true" data-property-name="third_party" class="showhide"checked/><a href="#" data-property-value="true" data-property-name="third_party" class="bouncepins">  Only Run with Third Party</a></p>
+            <div id="provider-boxes">
+              <p><input type="checkbox" name="provider" data-property-value="true" data-property-name="run_with_gpn" class="showhide"checked/><a href="#" data-property-value="true" data-property-name="run_with_gpn" class="bouncepins">  Groupon Merchants</a></p>
+              <p><input type="checkbox" name="provider" data-property-value="true" data-property-name="run_with_ls" class="showhide"checked/><a href="#" data-property-value="true" data-property-name="run_with_ls" class="bouncepins">  LivingSocial Merchants</a></p>
+              <p><input type="checkbox" name="provider" data-property-value="true" data-property-name="third_party" class="showhide"checked/><a href="#" data-property-value="true" data-property-name="third_party" class="bouncepins">  Only Run with Third Party</a></p>
+              <a class="provider-reset">Clear Provider Filter</a>
             </div>
             <h3><a href="#">Filter By Revenue</a></h3>
             <div>
@@ -21,6 +23,7 @@
               <p>
                 <input type="text" id="filtered-rev"/>
               </p>
+              <a class="revenue-reset">Clear Revenue Filter</a>
             </div>
             <h3><a href="#">Filter by Run Date</a></h3>
             <div>
@@ -28,9 +31,10 @@
               <p>
                 <input type="text" id="filtered-dates"/>
               </p>
+              <a class="date-reset">Clear Date Filter</a>
             </div>
             <h3><a href="#">Filter By Zip/Core Selling Area</a></h3>
-            <div>
+            <div id="zip-boxes">
               <p>
                 <input type="checkbox" data-property-value="true" data-property-name="csa" class="showhide"checked/><a href="#" data-property-value="true" data-property-name="csa" class="bouncepins">Inside Core Selling Area</a>
               </p>
@@ -38,24 +42,26 @@
                 <input type="checkbox" data-property-value="true" data-property-name="outside_csa" class="showhide"checked/><a href="#" data-property-value="true" data-property-name="outside_csa" class="bouncepins">Outside Core Selling Area</a>
               </p>
 
-              <select data-placeholder="Filter by Zipcodes" style="width:200px;" id="zips" multiple class="chzn-select" tabindex="8">
+              <select data-placeholder="Filter by Zipcodes" style="width:200px;" id="zips" multiple class="chzn-select-zips" tabindex="8">
                 <option value=""></option>
                 <% @market.zips.compact.each do |zip| %>
                 <option><%= zip %></option>
                 <% end %>
               </select>
+              <a class="zip-reset">Clear Zip Filters</a>
               <br />
               <br />
               <br />
             </div>
             <h3><a href="#">Filter By Category</a></h3>
             <div>
-              <select data-placeholder="Filter by Categories" style="width:200px;" id="categories" multiple class="chzn-select" tabindex="8">
+              <select data-placeholder="Filter by Categories" style="width:200px;" id="categories" multiple class="chzn-select-categories" tabindex="8">
                 <option value=""></option>
                 <% @market.categories.compact.each do |category| %>
                 <option><%= category %></option>
                 <% end %>
               </select>
+              <a class="category-reset">Clear Category Filters</a> ​
               <br />
               <br />
               <br />

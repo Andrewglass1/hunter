@@ -4,15 +4,17 @@ $(document).ready(function() {
 
   Gmaps.map.callback = function() {};
 
+
+//rev
+
   var PriceRangeFilter = {
     min: Market.min_revenue,
     max: Market.max_revenue,
   };
+
   $( "#filtered-rev" ).val( "$" + PriceRangeFilter.min + " - $" + PriceRangeFilter.max );
 
-  var AllPropertyFilters = [];
-
-  $( "#revenue-range" ).slider({
+  $("#revenue-range").slider({
       range: true,
       min: Market.min_revenue,
       max: Market.max_revenue,
@@ -25,6 +27,12 @@ $(document).ready(function() {
       }
     });
 
+//properties
+
+  var AllPropertyFilters = [];
+
+  var markerCount = Gmaps.map.markers.length;
+
   $("input.showhide:checkbox").click(function() {
     var name       = $(this).data('property-name');
     var value      = $(this).data('property-value');
@@ -35,67 +43,52 @@ $(document).ready(function() {
     applyAllFilters();
   });
 
-  $(".chzn-select").chosen();
 
-  var CategoryFilter = [];
 
-  var ZipFilter = [];
+//resets
+  $('.zip-reset').click(function() {
+    $(".chzn-select-zips").val('').trigger("liszt:updated");
+    ZipFilter = $(this).val();
+    $('#zip-boxes .showhide').prop("checked", true);
+    _.each($('#zip-boxes .showhide'),function(box){
+      AllPropertyFilters = _.filter(AllPropertyFilters, function(propertyFilter){ return propertyFilter.name != $(box).attr('data-property-name'); });
+    });
+    applyAllFilters();
+  });
 
-  $("#categories").change(function(){
+  $('.category-reset').click(function() {
+    $(".chzn-select-categories").val('').trigger("liszt:updated");
     CategoryFilter = $(this).val();
     applyAllFilters();
   });
 
-  $("#zips").change(function(){
-    ZipFilter = $(this).val();
+  $('.provider-reset').click(function(event) {
+    $('#provider-boxes .showhide').prop("checked", true);
+    _.each($('#provider-boxes .showhide'),function(box){
+      AllPropertyFilters = _.filter(AllPropertyFilters, function(propertyFilter){ return propertyFilter.name != $(box).attr('data-property-name'); });
+    });
     applyAllFilters();
   });
 
-  var applyAllFilters = function() {
-    _.each(Gmaps.map.markers, function(marker) {
-      Gmaps.map.hideMarker(marker)
-    })
-    _.each(visibleMarkers(), function(marker) {
-      Gmaps.map.showMarker(marker)
-    })
-  };
+  $('.revenue-reset').click(function() {
+    $("#revenue-range").slider("values", 0, Market.min_revenue);
+    $("#revenue-range").slider("values", 1, Market.max_revenue);
+    PriceRangeFilter.min = Market.min_revenue;
+    PriceRangeFilter.max = Market.max_revenue;
+    $( "#filtered-rev" ).val( "$" + PriceRangeFilter.min + " - $" + PriceRangeFilter.max );
+    applyAllFilters();
+  });
 
-  var visibleMarkers = function() {
-    var filtered = _.reject(Gmaps.map.markers, function(marker) {
-      return _.all(marker.revenues, function(revenue) {return revenue < PriceRangeFilter.min || revenue > PriceRangeFilter.max;
-      });
-    });
-    filtered = _.reject(filtered, function(marker) {
-      return _.all(marker.days_since, function(days) {return days < DateRangeFilter.recent || days > DateRangeFilter.oldest;
-      });
-    });
+  $('.date-reset').click(function() {
+    $("#date-range").slider("values", 0, 0);
+    $("#date-range").slider("values", 1, Market.max_days);
+    DateRangeFilter.recent = 0;
+    DateRangeFilter.oldest = Market.max_days;
+    $("#filtered-dates").val(dateToYMD(calculateDate(Market.max_days)) + " - " + dateToYMD(calculateDate(0)));
+    applyAllFilters();
+  });
 
-    if(CategoryFilter && CategoryFilter.length) {
-      filtered = _.reject(filtered, function(marker) {
-        return _.all(marker.categories, function(category) {
-          return _.all(CategoryFilter, function(filterCategory){
-            return filterCategory != category
-          });
-        });
-      });
-    }
-
-    if(ZipFilter && ZipFilter.length) {
-      filtered = _.reject(filtered, function(marker) {
-        return _.all(ZipFilter, function(filterZip){
-          return filterZip != marker.zip
-        });
-      });
-    };
-
-    console.log(AllPropertyFilters)
-    _.each(AllPropertyFilters, function(filter){
-      filtered = _.reject(filtered, function(marker) {
-        return marker[filter.name] == filter.value && filter.shouldShow == "unchecked"
-      });
-    });
-    return filtered
-  };
+// dates
 
   var DateRangeFilter = {
     recent: 0,
@@ -115,7 +108,7 @@ $(document).ready(function() {
       DateRangeFilter.oldest = oldest_day;
       var old_date = calculateDate(oldest_day);
       var recent_date = calculateDate(recent_day);
-      $( "#filtered-dates" ).val( dateToYMD(old_date) + " - " + dateToYMD(recent_date) );
+      $("#filtered-dates").val( dateToYMD(old_date) + " - " + dateToYMD(recent_date) );
       applyAllFilters();
     }
   });
@@ -127,6 +120,75 @@ $(document).ready(function() {
     date.setDate(date.getDate() - days );
     return date
   };
+
+//categories
+
+  var CategoryFilter = [];
+
+  $("#categories").change(function(){
+    CategoryFilter = $(this).val();
+    applyAllFilters();
+  });
+
+  $(".chzn-select-categories").chosen();
+//zips
+
+  var ZipFilter = [];
+
+  $("#zips").change(function(){
+    ZipFilter = $(this).val();
+    applyAllFilters();
+  });
+
+  var applyAllFilters = function() {
+    _.each(Gmaps.map.markers, function(marker) {
+      Gmaps.map.hideMarker(marker)
+    })
+    _.each(visibleMarkers(), function(marker) {
+      Gmaps.map.showMarker(marker)
+    })
+  };
+
+  $(".chzn-select-zips").chosen();
+
+//filters
+
+  var visibleMarkers = function() {
+    var filtered = _.reject(Gmaps.map.markers, function(marker) {
+      return _.all(marker.revenues, function(revenue) {return revenue < PriceRangeFilter.min || revenue > PriceRangeFilter.max;
+      });
+    });
+    filtered = _.reject(filtered, function(marker) {
+      return _.all(marker.days_since, function(days) {return days < DateRangeFilter.recent || days > DateRangeFilter.oldest;
+      });
+    });
+    if(CategoryFilter && CategoryFilter.length) {
+      filtered = _.reject(filtered, function(marker) {
+        return _.all(marker.categories, function(category) {
+          return _.all(CategoryFilter, function(filterCategory){
+            return filterCategory != category
+          });
+        });
+      });
+    }
+    if(ZipFilter && ZipFilter.length) {
+      filtered = _.reject(filtered, function(marker) {
+        return _.all(ZipFilter, function(filterZip){
+          return filterZip != marker.zip
+        });
+      });
+    };
+    _.each(AllPropertyFilters, function(filter){
+      filtered = _.reject(filtered, function(marker) {
+        return marker[filter.name] == filter.value && filter.shouldShow == "unchecked"
+      });
+    });
+    $('.deals-returned').text(filtered.length + " Merchants Returned")
+    return filtered
+  };
+
+
+//pins
 
   $('#placeme').click(function() {
     var lat = Gmaps.map.userLocation.$a;
@@ -148,6 +210,9 @@ $(document).ready(function() {
       }
     });
   });
+
+
+//formatting
 
   Number.prototype.formatMoney = function(c, d, t){
   var n = this, c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
