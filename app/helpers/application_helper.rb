@@ -19,4 +19,11 @@ module ApplicationHelper
     link_to title, {:sort => column, :direction => direction}, {:class => css_class}
   end
 
+  def category_or_nil(input)
+    if input == "N/A"
+      nil
+    else
+      input
+    end
+  end
 end

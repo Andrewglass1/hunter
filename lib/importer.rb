@@ -27,7 +27,7 @@ extend ApplicationHelper
                 :yipit_deal_id => row['id'],
                 :market_id => market.id,
                 :merchant_id => merchant.id,
-                :category => row['category'],
+                :category => category_or_nil(row['category']),
                 :date_added => Date.strptime(row['date_added'], "%m/%d/%Y"),
                 :date_ended => Date.strptime(row['date_ended'], "%m/%d/%Y"),
                 :deal_url => row['deal_url'],

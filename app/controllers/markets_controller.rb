@@ -11,7 +11,7 @@ class MarketsController < ApplicationController
     @json      = @market.merchants.to_gmaps4rails do |merchant, marker|
       marker.infowindow render_to_string(:partial => "/merchants/pop", :locals => { :merchant => merchant})
       marker.picture({
-        :picture => "https://s3.amazonaws.com/huntericons/sandwich-2.png",
+        :picture => "https://s3.amazonaws.com/huntericons/#{merchant.category_logo+merchant.provider_logo}.png",
         :width  => 32,
         :height => 32})
       marker.title   "#{merchant.name}"

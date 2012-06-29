@@ -79,6 +79,44 @@ class Merchant < ActiveRecord::Base
     search = "#{name}%20#{city}".gsub(".","").gsub(",","").gsub("'","").gsub(" ","%20")
     base_url+search
   end
+
+  def category_logo
+    category = deals.first.category
+    if ["Hair Salons"].include?(category)
+      "barber"
+    elsif ["Nail Care", "Spa", "Makeup", "Skin Care", "Facials", "Waxing", "Tanning"].include?(category)
+      "beautysalon"
+    elsif ["Dental", "Teeth Whitening"].include?(category)
+      "dentist"
+    elsif ["Yoga", "Pilates"].include?(category)
+      "yoga"
+    elsif ["Restaurants"].include?(category)
+      "restaurant"
+    elsif ["Women's Clothing","Men's Clothing"].include?(category)
+      "shopping"
+    elsif  ["Bars/Lounges"].include?(category)
+      "bar"
+    elsif  ["Groceries"].include?(category)
+      "grocery"
+    elsif  ["Martial Arts", "Outdoor Adventures", "Boot Camp", "Fitness Classes", "Personal Trainer",].include?(category)
+      "weights"
+    else
+      "target"
+    end
+  end
+
+  def provider_logo
+    if run_with_ls?
+      "ls"
+    elsif run_with_gpn?
+      "g"
+    else
+      "3"
+    end
+  end
+      
+      
+      
 end
 
 
