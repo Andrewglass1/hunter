@@ -16,17 +16,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
+      <%= image_tag "ls_logo.png", :class=> "pull-left" %>
       <a class="brand" href="#">Merchant Hunter</a>
       <div class="nav-collapse">
         <ul class="nav">
-          <% if current_user %>
-            <% current_user.markets.each do |market| %>
-            <li><%= link_to market.name, market_path(market) %></li>
-            <% end %>
-          <% end %>
         </ul>
       </div>
-      <div id="user_nav">
+      <div id="user_nav" class="pull-right">
         <% if user_signed_in? %>
           Signed in as <%= current_user.email %>. Not you?
           <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
@@ -37,8 +33,10 @@
     </div>
   </div>
 </div>
+<div class="yield">
 <%= yield %>
 <%= yield :scripts %>
+</div>
 
 </body>
 </html>
