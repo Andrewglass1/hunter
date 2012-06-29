@@ -22,7 +22,7 @@ $(document).ready(function() {
       slide: function(event, ui) {
         PriceRangeFilter.min = ui.values[0];
         PriceRangeFilter.max = ui.values[1];
-        applyAllFilters();
+        applyAllFilters()
         $( "#filtered-rev" ).val( '$' +(ui.values[ 0 ]).formatMoney(0, '.', ',') + " - $" + (ui.values[ 1 ]).formatMoney(0, '.', ',') );
       }
     });
@@ -172,6 +172,9 @@ $(document).ready(function() {
     applyAllFilters();
   });
 
+  $(".chzn-select-zips").chosen();
+
+//filters
   var applyAllFilters = function() {
     _.each(Gmaps.map.markers, function(marker) {
       Gmaps.map.hideMarker(marker)
@@ -181,9 +184,8 @@ $(document).ready(function() {
     })
   };
 
-  $(".chzn-select-zips").chosen();
+  var applyAllFilters = _.debounce(applyAllFilters, 10);
 
-//filters
 
   var visibleMarkers = function() {
     var filtered = _.reject(Gmaps.map.markers, function(marker) {
