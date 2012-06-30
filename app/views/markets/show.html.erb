@@ -62,7 +62,7 @@
             <div>
               <select data-placeholder="Filter by Categories" style="width:200px;" id="categories" multiple class="chzn-select-categories" tabindex="8">
                 <option value=""></option>
-                <% @market.categories.compact.each do |category| %>
+                <% @market.categories_index.each do |category, freq| %>
                 <option><%= category %></option>
                 <% end %>
               </select>

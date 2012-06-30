@@ -35,7 +35,14 @@ class Market < ActiveRecord::Base
   end
 
   def categories
-    deals.map(&:category).uniq
+    deals.map(&:category).compact.uniq
+  end
+
+  def categories_index
+    cats = deals.map(&:category).compact
+    index = {}
+    cats.each { |i| index.include?(i) ? index[i] += 1 : index[i] = 1}
+    index.sort_by { |key, value| value }.reverse
   end
 
   def zips
