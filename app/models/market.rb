@@ -48,5 +48,12 @@ class Market < ActiveRecord::Base
   def zips
     merchants.map(&:zip).uniq
   end
+
+  def zips_index
+    zips = merchants.map(&:zip).compact
+    index = {}
+    zips.each { |i| index.include?(i) ? index[i] += 1 : index[i] = 1}
+    index.sort_by { |key, value| value }.reverse
+  end
 end
 
