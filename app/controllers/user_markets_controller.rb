@@ -11,7 +11,7 @@ class UserMarketsController < ApplicationController
   def destroy
     @user_market = UserMarket.find(params[:id])
     @user_market.destroy
-    redirect_to user_path(current_user)
+    redirect_to markets_path
   end
   
   def new

@@ -4,7 +4,7 @@ require 'csv'
 extend ApplicationHelper
 
   def self.import
-    csv_text = File.read('/Users/andrewglass/Desktop/el_paso.csv')
+    csv_text = File.read('/Users/andrewglass/Desktop/cleveland.csv')
     csv = CSV.parse(csv_text, {:headers => true, :header_converters => :symbol})
     csv.each do |row|
       row = row.to_hash.with_indifferent_access
@@ -48,7 +48,7 @@ extend ApplicationHelper
   end
 
   def self.import_csa_zips
-    csv_text = File.read('/Users/andrewglass/Desktop/el_paso_csa.csv')
+    csv_text = File.read('/Users/andrewglass/Desktop/cleveland_csa.csv')
     csv = CSV.parse(csv_text, {:headers => true, :header_converters => :symbol})
     csv.each do |row|
       row = row.to_hash.with_indifferent_access
