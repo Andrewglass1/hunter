@@ -240,7 +240,7 @@ $(document).ready(function() {
     _.each(Gmaps.map.markers, function(marker) {
       if(marker[propName] == propValue) {
         Gmaps.map.bounceMarker(marker);
-        setTimeout(function() { Gmaps.map.stopMarker(marker); }, 750 * 2);
+        setTimeout(function() { Gmaps.map.stopMarker(marker); }, 1125 * 2);
       }
     });
   });

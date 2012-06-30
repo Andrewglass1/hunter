@@ -11,7 +11,7 @@ extend ApplicationHelper
       market   = Market.find_or_create_by_name(row['division'])
       if Geocoder::Calculations.distance_between([market.latitude, market.longitude],[row['latitude'],row['longitude']]) < 75
 
-        merchant = Merchant.find_or_create_by_yipit_merchant_id(
+        merchant = Merchant.find_or_create_by_name_and_address(
                 :address => row['address'],
                 :yipit_merchant_id => row['merchant_id'],
                 :name => clean_characters(row['merchant_name']),
