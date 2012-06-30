@@ -267,6 +267,10 @@ $(document).ready(function() {
   function dateToYMD(date){
     return $.datepicker.formatDate('M dd yy', date);
   };
+
+  $(function(){
+        $('#multiAccordion').multiAccordion();
+});
   
   $("#sidebar_accordion").addClass("ui-accordion ui-accordion-icons ui-widget ui-helper-reset")
   .find("h3")
