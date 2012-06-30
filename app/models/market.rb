@@ -9,9 +9,6 @@ class Market < ActiveRecord::Base
 
   after_create :calculate_lat_long
 
-  def total_month_rev(month, year)
-  end
-
   def max_revenue
     deals.map(&:revenue).compact.max
   end

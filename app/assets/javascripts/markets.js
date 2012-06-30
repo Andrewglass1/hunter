@@ -43,8 +43,6 @@ $(document).ready(function() {
     applyAllFilters();
   });
 
-
-
 //resets
 
   $('.filters-reset').click(function(){
@@ -107,6 +105,7 @@ $(document).ready(function() {
     applyAllFilters();
   }
 
+
   $('.date-reset').click(function() {
     clearDates();
   });
@@ -157,22 +156,34 @@ $(document).ready(function() {
 
   var CategoryFilter = [];
 
+  $(".chzn-select-categories").chosen();
+
   $("#categories").change(function(){
     CategoryFilter = $(this).val();
     applyAllFilters();
   });
 
-  $(".chzn-select-categories").chosen();
 //zips
 
   var ZipFilter = [];
+
+  $(".chzn-select-zips").chosen();
 
   $("#zips").change(function(){
     ZipFilter = $(this).val();
     applyAllFilters();
   });
 
-  $(".chzn-select-zips").chosen();
+
+//markets
+  $(".chzn-select-markets").chosen();
+
+  $(".chzn-select-markets").change(function(){
+    var id = $(".chzn-select-markets option:selected").attr('data-market-id')
+    var source = '/markets/'+ id
+    console.log(source)
+    window.location.href = source;
+  });
 
 //filters
   var applyAllFilters = function() {
