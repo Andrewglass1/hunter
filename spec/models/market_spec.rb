@@ -26,29 +26,24 @@ describe Market do
     end
   end
 
-  describe "#categories" do
-    it "returns an array of categories for deals run in that market" do
-      market.categories.class == Array
-    end
-
-    it "returns the categories for all of the deals" do
-      market.deals.each do |deal|
-        market.categories.include?(deal.category).should == true
+  describe "#categories_index" do
+    it "returns a hash with the categories mentioned in the market with their frequency" do
+      market.categories_index.each do |category, frequency|
+        category.class.should == String
+        frequency.class.should == Fixnum
       end
     end
   end
 
-  describe "#zips" do
-    it "returns an array of zip codes for merchants in that market" do
-      market.zips.class == Array
+  describe "#zips_index" do
+    it "returns a hash with the zipcodes with deals in the market with their frequency" do
+      market.zips_index.each do |zip, frequency|
+        zip.class.should == String
+        frequency.class.should == Fixnum
+      end
     end
   end
 
-  it "returns the zip codes for each of the merchants" do
-    market.merchants.each do |merchant|
-      market.zips.include?(merchant.zip).should == true
-    end
-  end
 
   describe "#all_csa_zipcodes" do
     it "returns an array of core selling area zipcodes for the market" do

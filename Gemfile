@@ -16,7 +16,7 @@ group :test, :development do
   gem "capybara"
   gem 'simplecov'
   gem 'guard'
-  gem 'jasmine'
+  gem 'jasminerice'
 end
 
 gem 'jquery-rails'

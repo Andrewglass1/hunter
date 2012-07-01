@@ -10,7 +10,6 @@ class CreateMerchants < ActiveRecord::Migration
       t.float :longitude
       t.string :phone
       t.string :website
-      t.integer :appearances
 
       t.timestamps
     end

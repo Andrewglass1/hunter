@@ -1,7 +1,7 @@
 require 'spec_helper'
 describe Merchant do
 
-  let!(:merchant) { Merchant.create(name: "test") }
+  let!(:merchant) { Merchant.create(name: "test", city: "merchant_city") }
   let!(:deal) { Deal.create(merchant_id: merchant.id, category: "deal_category1", provider: "livingsocial", revenue: 50, date_added: Date.strptime("10/04/1988", "%m/%d/%Y"))}
   let!(:deal1) { Deal.create(merchant_id: merchant.id, category: "deal_category2", provider: "poop-on", revenue: 5, date_added: Date.strptime("10/04/2005", "%m/%d/%Y"))}
 
@@ -107,6 +107,31 @@ describe Merchant do
       merchant.total_revenue.should == 55
     end
   end
+
+  describe "#sfdc_url" do
+    it "should return a string" do
+      merchant.sfdc_url.class == String
+    end
+    it "should include the merchant name" do
+      merchant.sfdc_url.should match /#{merchant.name}/
+    end
+    it "should include the merchant city" do
+      merchant.sfdc_url.should match /#{merchant.city}/
+    end
+  end
+
+  describe "#category_logo" do
+    it "returns a string representing the category of the merchant for a pin image" do
+      merchant.category_logo.class == String
+    end
+  end
+
+  describe "#provider_logo" do
+    it "returns a string representing the provider of the merchant for a pin image" do
+      merchant.provider_logo.class == String
+    end
+  end
+
 
   # describe "#in_csa" do
   #   it "should return a string" do

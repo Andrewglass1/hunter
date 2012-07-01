@@ -20,7 +20,6 @@ extend ApplicationHelper
                 :latitude => row['latitude'],
                 :longitude => row['longitude'],
                 :website => row['merchant_website'],
-                :appearances =>row['appearances'],
                 :phone => row['phone'])
 
         Deal.find_or_create_by_yipit_deal_id(
@@ -40,9 +39,7 @@ extend ApplicationHelper
                 :short_title => clean_characters(row['short_title']),
                 :sold => row['sold'],
                 :sold_out =>row ['sold_out'],
-                :value => row['value'],
-                :latitude => merchant.latitude,
-                :longitude => merchant.longitude)
+                :value => row['value'])
       end
     end
   end
@@ -52,8 +49,8 @@ extend ApplicationHelper
     csv = CSV.parse(csv_text, {:headers => true, :header_converters => :symbol})
     csv.each do |row|
       row = row.to_hash.with_indifferent_access
-      market   = Market.find_or_create_by_name(row['name'])
       if row['csa'] == "Y"
+        market   = Market.find_or_create_by_name(row['name'])
         CsaZip.create(csa_zipcode: row['zip'], market_id: market.id)
       end
     end

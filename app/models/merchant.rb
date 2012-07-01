@@ -1,19 +1,15 @@
 class Merchant < ActiveRecord::Base
   include ApplicationHelper
 
-  attr_accessible :address,   :appearances, :city,    :zip,            
-                  :name,      :phone,       :website, :latitude,
-                  :longitude, :yipit_merchant_id
+  attr_accessible :name,  :address, :city,     :zip,            
+                  :phone, :website, :latitude, :longitude,
+                  :yipit_merchant_id
+                  
   has_many :deals
   acts_as_gmappable :process_geocoding => false
 
-
   def market
     deals.first.market
-  end
-
-  def providers
-    deals.map(&:provider).uniq.compact
   end
 
   def revenues
@@ -114,9 +110,13 @@ class Merchant < ActiveRecord::Base
       "3"
     end
   end
-      
-      
-      
+
+private
+
+  def providers
+    deals.map(&:provider).uniq.compact
+  end
+
 end
 
 

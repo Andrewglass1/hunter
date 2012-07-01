@@ -1,5 +1,6 @@
 class Market < ActiveRecord::Base
   include ApplicationHelper
+  
   attr_accessible :name, :latitude, :longitude
   has_many :deals
   has_many :merchants, :through => :deals, :uniq => true
@@ -31,19 +32,11 @@ class Market < ActiveRecord::Base
     csa_zips.collect {|csazip| csazip.csa_zipcode}
   end
 
-  def categories
-    deals.map(&:category).compact.uniq
-  end
-
   def categories_index
     cats = deals.map(&:category).compact
     index = {}
     cats.each { |i| index.include?(i) ? index[i] += 1 : index[i] = 1}
     index.sort_by { |key, value| value }.reverse
-  end
-
-  def zips
-    merchants.map(&:zip).uniq
   end
 
   def zips_index

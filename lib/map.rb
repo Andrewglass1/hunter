@@ -1,4 +1,5 @@
 module Map
+
   def self.map_options
     {"auto_zoom" => true,
      "zoom" => 22,
@@ -12,4 +13,5 @@ module Map
     {"raw" => 
     '{animation: google.maps.Animation.DROP}'}
   end
+  
 end

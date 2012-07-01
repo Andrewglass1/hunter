@@ -1,10 +1,10 @@
 class Deal < ActiveRecord::Base
   
-  attr_accessible :merchant_id,:market_id,  :category,    :date_added,
-                  :discount,   :full_title, :price,       :provider,
-                  :revenue,  :revenue_index,:short_title, :date_ended, 
-                  :sold,     :sold_out,     :value,      :yipit_deal_id,
-                  :deal_url, :latitude, :longitude
+  attr_accessible :merchant_id, :market_id,  :category, :date_added,
+                  :discount,    :full_title, :price,    :provider,
+                  :revenue,     :date_ended, :value,    :yipit_deal_id,
+                  :sold,        :sold_out,   :deal_url, :revenue_index,     
+                  :short_title
   
   after_create :standardize_provider
 

@@ -2,17 +2,14 @@ $(document).ready(function() {
 
   console.log(Gmaps.map)
 
-  Gmaps.map.callback = function() {};
+//revenue
 
-
-//rev
-
-  var PriceRangeFilter = {
+  var RevenueRangeFilter = {
     min: Market.min_revenue,
     max: Market.max_revenue,
   };
 
-  $( "#filtered-rev" ).val( "$" + PriceRangeFilter.min + " - $" + PriceRangeFilter.max );
+  $( "#filtered-rev" ).val( "$" + RevenueRangeFilter.min + " - $" + RevenueRangeFilter.max );
 
   $("#revenue-range").slider({
       range: true,
@@ -20,8 +17,8 @@ $(document).ready(function() {
       max: Market.max_revenue,
       values: [ 0, Market.max_revenue ],
       slide: function(event, ui) {
-        PriceRangeFilter.min = ui.values[0];
-        PriceRangeFilter.max = ui.values[1];
+        RevenueRangeFilter.min = ui.values[0];
+        RevenueRangeFilter.max = ui.values[1];
         applyAllFilters()
         $( "#filtered-rev" ).val( '$' +(ui.values[ 0 ]).formatMoney(0, '.', ',') + " - $" + (ui.values[ 1 ]).formatMoney(0, '.', ',') );
       }
@@ -43,81 +40,7 @@ $(document).ready(function() {
     applyAllFilters();
   });
 
-//resets
 
-  $('.filters-reset').click(function(){
-    clearZips();
-    clearCategories();
-    clearProviders();
-    clearRevenue();
-    clearDates();
-  });
-
-
-  $('.zip-reset').click(function(){
-    clearZips()
-  });
-
-  var clearZips = function() {
-    console.log("itoman")
-    $(".chzn-select-zips").val('').trigger("liszt:updated");
-    ZipFilter = [];
-    console.log(ZipFilter)
-    $('#zip-boxes .showhide').prop("checked", true);
-    _.each($('#zip-boxes .showhide'),function(box){
-      AllPropertyFilters = _.filter(AllPropertyFilters, function(propertyFilter){ return propertyFilter.name != $(box).attr('data-property-name'); });
-    });
-    applyAllFilters();
-  }
-
-  $('.category-reset').click(function() {
-    clearCategories();
-  });
-
-  var clearCategories = function() {
-    $(".chzn-select-categories").val('').trigger("liszt:updated");
-    CategoryFilter = [];
-    applyAllFilters();
-  }
-
-  $('.provider-reset').click(function() {
-    clearProviders();
-  });
-
-  var clearProviders = function() {
-    $('#provider-boxes .showhide').prop("checked", true);
-    _.each($('#provider-boxes .showhide'),function(box){
-      AllPropertyFilters = _.filter(AllPropertyFilters, function(propertyFilter){ return propertyFilter.name != $(box).attr('data-property-name'); });
-    });
-    applyAllFilters();
-  }
-
-  $('.revenue-reset').click(function() {
-    clearRevenue();
-  });
-
-  var clearRevenue = function() {
-    $("#revenue-range").slider("values", 0, Market.min_revenue);
-    $("#revenue-range").slider("values", 1, Market.max_revenue);
-    PriceRangeFilter.min = Market.min_revenue;
-    PriceRangeFilter.max = Market.max_revenue;
-    $( "#filtered-rev" ).val( "$" + PriceRangeFilter.min + " - $" + PriceRangeFilter.max );
-    applyAllFilters();
-  }
-
-
-  $('.date-reset').click(function() {
-    clearDates();
-  });
-
-  var clearDates = function() {
-    $("#date-range").slider("values", 0, 0);
-    $("#date-range").slider("values", 1, Market.max_days);
-    DateRangeFilter.recent = 0;
-    DateRangeFilter.oldest = Market.max_days;
-    $("#filtered-dates").val(dateToYMD(calculateDate(Market.max_days)) + " - " + dateToYMD(calculateDate(0)));
-    applyAllFilters();
-  }
 
 // dates
 
@@ -176,12 +99,12 @@ $(document).ready(function() {
 
 
 //markets
+
   $(".chzn-select-markets").chosen();
 
   $(".chzn-select-markets").change(function(){
     var id = $(".chzn-select-markets option:selected").attr('data-market-id')
     var source = '/markets/'+ id
-    console.log(source)
     window.location.href = source;
   });
 
@@ -200,7 +123,7 @@ $(document).ready(function() {
 
   var visibleMarkers = function() {
     var filtered = _.reject(Gmaps.map.markers, function(marker) {
-      return _.all(marker.revenues, function(revenue) {return revenue < PriceRangeFilter.min || revenue > PriceRangeFilter.max;
+      return _.all(marker.revenues, function(revenue) {return revenue < RevenueRangeFilter.min || revenue > RevenueRangeFilter.max;
       });
     });
     filtered = _.reject(filtered, function(marker) {
@@ -232,6 +155,80 @@ $(document).ready(function() {
     return filtered
   };
 
+
+//filter resets
+
+  $('.filters-reset').click(function(){
+    clearZips();
+    clearCategories();
+    clearProviders();
+    clearRevenue();
+    clearDates();
+  });
+
+
+  $('.zip-reset').click(function(){
+    clearZips()
+  });
+
+  var clearZips = function() {
+    $(".chzn-select-zips").val('').trigger("liszt:updated");
+    ZipFilter = [];
+    $('#zip-boxes .showhide').prop("checked", true);
+    _.each($('#zip-boxes .showhide'),function(box){
+      AllPropertyFilters = _.filter(AllPropertyFilters, function(propertyFilter){ return propertyFilter.name != $(box).attr('data-property-name'); });
+    });
+    applyAllFilters();
+  }
+
+  $('.category-reset').click(function() {
+    clearCategories();
+  });
+
+  var clearCategories = function() {
+    $(".chzn-select-categories").val('').trigger("liszt:updated");
+    CategoryFilter = [];
+    applyAllFilters();
+  }
+
+  $('.provider-reset').click(function() {
+    clearProviders();
+  });
+
+  var clearProviders = function() {
+    $('#provider-boxes .showhide').prop("checked", true);
+    _.each($('#provider-boxes .showhide'),function(box){
+      AllPropertyFilters = _.filter(AllPropertyFilters, function(propertyFilter){ return propertyFilter.name != $(box).attr('data-property-name'); });
+    });
+    applyAllFilters();
+  }
+
+  $('.revenue-reset').click(function() {
+    clearRevenue();
+  });
+
+  var clearRevenue = function() {
+    $("#revenue-range").slider("values", 0, Market.min_revenue);
+    $("#revenue-range").slider("values", 1, Market.max_revenue);
+    RevenueRangeFilter.min = Market.min_revenue;
+    RevenueRangeFilter.max = Market.max_revenue;
+    $( "#filtered-rev" ).val( "$" + RevenueRangeFilter.min + " - $" + RevenueRangeFilter.max );
+    applyAllFilters();
+  }
+
+
+  $('.date-reset').click(function() {
+    clearDates();
+  });
+
+  var clearDates = function() {
+    $("#date-range").slider("values", 0, 0);
+    $("#date-range").slider("values", 1, Market.max_days);
+    DateRangeFilter.recent = 0;
+    DateRangeFilter.oldest = Market.max_days;
+    $("#filtered-dates").val(dateToYMD(calculateDate(Market.max_days)) + " - " + dateToYMD(calculateDate(0)));
+    applyAllFilters();
+  }
 
 //pins
 
@@ -268,24 +265,10 @@ $(document).ready(function() {
     return $.datepicker.formatDate('M dd yy', date);
   };
 
+//accordion
+
   $(function(){
         $('#multiAccordion').multiAccordion();
-});
-  
-  $("#sidebar_accordion").addClass("ui-accordion ui-accordion-icons ui-widget ui-helper-reset")
-  .find("h3")
-    .addClass("ui-accordion-header ui-helper-reset ui-state-default ui-corner-top ui-corner-bottom")
-    .hover(function() { $(this).toggleClass("ui-state-hover"); })
-    .prepend('<span class="ui-icon ui-icon-triangle-1-e"></span>')
-    .click(function() {
-      $(this)
-        // .toggleClass("ui-accordion-header-active ui-state-active ui-state-default ui-corner-bottom")
-        .find("> .ui-icon").toggleClass("ui-icon-triangle-1-e ui-icon-triangle-1-s").end()
-        .next().toggleClass("ui-accordion-content-active").slideToggle();
-      return false;
-    })
-    .next()
-      .addClass("ui-accordion-content  ui-helper-reset ui-widget-content ui-corner-bottom")
-      .hide();
+  });
 
 });

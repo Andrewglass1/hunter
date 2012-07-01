@@ -19,8 +19,6 @@ class CreateDeals < ActiveRecord::Migration
       t.float :revenue_index
       t.string :deal_url
       t.string :category
-      t.float :latitude
-      t.float :longitude
 
       t.timestamps
     end
