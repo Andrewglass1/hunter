@@ -39,8 +39,6 @@ ActiveRecord::Schema.define(:version => 20120627182530) do
     t.float    "revenue_index"
     t.string   "deal_url"
     t.string   "category"
-    t.float    "latitude"
-    t.float    "longitude"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
@@ -63,7 +61,6 @@ ActiveRecord::Schema.define(:version => 20120627182530) do
     t.float    "longitude"
     t.string   "phone"
     t.string   "website"
-    t.integer  "appearances"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end

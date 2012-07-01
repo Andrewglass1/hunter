@@ -36,7 +36,8 @@ body { padding-top: 60px; }
   background-color: @whale !important;
   margin:5px !important;
   border-radius: 15px;
-  width: 120%;
+  width: 130%;
+  float: left;
 }
 
 .sidebar_well {
@@ -61,22 +62,28 @@ h1, h3, li, a {
 }
 
 
-
 #revenue-range, #date-range {
   width: 85%;
   background: #262626;
 }
 
+
 .map_container {
-  width: 800px;
-  height: 700px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ccc #ccc #999 #ccc;
+  -webkit-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
+  -moz-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
+  box-shadow: rgba(64, 64, 64, 0.1) 0 2px 5px;
   padding: 10px;
+  width: 1100px;
+  height: 950px;
+}
   .gmaps4rails_map{
-    width: 800px;
-    height: 700px;
+    width: 1100px;
+    height: 950px;
     border-radius: 15px;
    }
-}
 
 #filtered-rev, #filtered-dates {
   background:#eeeeee !important;
@@ -170,7 +177,12 @@ revenue-reset {
   width: 120%;
   margin: 0px auto;
   vertical-align: middle;
-  text-align: center
+  text-align: center;
+}
+
+.centered {
+  text-align: center;
+  margin: 0px auto;
 }
 
 

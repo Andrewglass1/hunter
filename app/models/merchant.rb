@@ -94,7 +94,7 @@ class Merchant < ActiveRecord::Base
       "bar"
     elsif  ["Groceries"].include?(category)
       "grocery"
-    elsif  ["Martial Arts", "Outdoor Adventures", "Boot Camp", "Fitness Classes", "Personal Trainer",].include?(category)
+    elsif  ["Gym", "Martial Arts", "Outdoor Adventures", "Boot Camp", "Fitness Classes", "Personal Trainer",].include?(category)
       "weights"
     else
       "target"
