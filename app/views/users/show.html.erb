@@ -1,9 +1,11 @@
-<script type="text/javascript">
-  window.onload = function () {
-  
-  $('.navbar').remove();
+<style>
+.navbar {
+  display: none;
+}  
+body {
+  background-color: #d1d1d1;
 }
-</script>
+</style>
 
 <div class="span8 offset2">
 <% if @user.markets.blank? %>
@@ -13,6 +15,7 @@
 <% else %>
 <h1> Your Markets </h1>
 </br>
+<hr>
 </br>
 
   <table class="table table-condensed">
