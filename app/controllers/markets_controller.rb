@@ -33,4 +33,9 @@ class MarketsController < ApplicationController
   def index
     @markets = Market.all
   end
+
+  def stats
+    @market = Market.find(params[:id])
+  end
+
 end

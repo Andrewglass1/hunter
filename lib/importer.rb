@@ -3,8 +3,8 @@ module Importer
 require 'csv'
 extend ApplicationHelper
 
-DEAL_FILE_LOCATION = '/Users/andrewglass/Desktop/raleigh.csv'
-CSA_FILE_LOCATION = '/Users/andrewglass/Desktop/raleigh_csa.csv'
+DEAL_FILE_LOCATION = '/Users/andrewglass/Desktop/cleveland.csv'
+CSA_FILE_LOCATION = '/Users/andrewglass/Desktop/cleveland_csa.csv'
 
 
   def self.import

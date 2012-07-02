@@ -8,7 +8,7 @@ module ApplicationHelper
 
   def clean_characters(input)
     unless input.nil?
-  	  input.gsub("â€™","'").gsub("â€œ","").gsub("&"," and ").gsub("  "," ").gsub("Ã±o","ñ")
+  	  input.gsub("â€™","'").gsub("â€œ","").gsub("&"," and ").gsub("  "," ").gsub("Ã±o","ñ").gsub("'","")
     end
   end
 
@@ -23,7 +23,8 @@ module ApplicationHelper
     if input == "N/A"
       nil
     else
-      input
+      clean_characters(input)
     end
   end
+
 end

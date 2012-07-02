@@ -39,6 +39,40 @@ class Market < ActiveRecord::Base
     index.sort_by { |key, value| value }.reverse
   end
 
+  def categories_index_with_total_revenue
+    index = {}
+    categories = deals.map(&:category).uniq.compact
+    categories.each do |category|
+      deals = Deal.where("category = '#{category}' AND market_id = #{id}")
+      revenue = deals.map(&:revenue).compact.sum
+      index[category] = revenue
+    end
+    index.sort_by { |key, value| value }.reverse
+  end
+
+  def graphael_data
+    revenues = categories_index_with_total_revenue.collect {|category,revenue| revenue}
+    legend = categories_index_with_total_revenue.collect {|category,revenue| "%%.%% - #{category.html_safe}" }
+    [revenues, legend]
+  end
+
+  def self.categories_index_with_total_revenue
+    index = {}
+    categories = Deal.all.map(&:category).uniq.compact
+    categories.each do |category|
+      deals = Deal.where("category = '#{category}'")
+      revenue = deals.map(&:revenue).compact.sum
+      index[category] = revenue
+    end
+    index.sort_by { |key, value| value }.reverse
+  end
+
+  def self.graphael_data
+    revenues = Market.categories_index_with_total_revenue.collect {|category,revenue| revenue}
+    legend = Market.categories_index_with_total_revenue.collect {|category,revenue| "%%.%% - #{category.html_safe}" }
+    [revenues, legend]
+  end
+
   def zips_index
     zips = merchants.map(&:zip).compact
     index = {}
