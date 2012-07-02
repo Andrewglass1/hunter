@@ -26,7 +26,7 @@ CSA_FILE_LOCATION = '/Users/andrewglass/Desktop/el_paso_csa.csv'
                 :website => row['merchant_website'],
                 :phone => row['phone'])
 
-        Deal.find_or_create_by_yipit_deal_id(
+        Deal.find_or_create_by_merchant_id_and_date_added(
                 :yipit_deal_id => row['id'],
                 :market_id => market.id,
                 :merchant_id => merchant.id,

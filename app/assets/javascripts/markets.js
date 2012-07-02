@@ -241,6 +241,7 @@ $(document).ready(function() {
     clearDates();
   });
 
+  //are the old and new dates here messed up?
   var clearDates = function() {
     $("#date-range").slider("values", 0, 0);
     $("#date-range").slider("values", 1, Market.max_days);
