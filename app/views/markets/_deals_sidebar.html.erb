@@ -11,6 +11,22 @@
           <a class="provider-reset">Clear Provider Filter</a>
         </div>
     </div>
+    <h3><a href="#">Filter By Merchant Category</a></h3>
+    <div>
+        <div>
+          <select data-placeholder="Filter by Categories" style="width:200px;" id="categories" multiple class="chzn-select-categories" tabindex="8">
+            <option value=""></option>
+            <% @market.categories_index.each do |category, freq| %>
+            <option><%= category %></option>
+            <% end %>
+          </select>           
+          <a class="category-reset">Clear Category Filters</a> ​
+          <br />
+          <br />
+          <br />
+          <br />
+        </div>
+    </div>
     <h3><a href="#">Filter By Revenue</a></h3>
     <div>
         <div>
@@ -42,10 +58,10 @@
     <div>
         <div id="zip-boxes">
           <p>
-            <input type="checkbox" data-property-value="true" data-property-name="csa" class="showhide"checked/><a href="#" data-property-value="true" data-property-name="csa" class="bouncepins"> Inside Core Selling Area</a>
+            <input type="checkbox" data-property-value="true" data-property-name="csa" class="showhide"checked/><a href="#" data-property-value="true" data-property-name="csa" class="bouncepins">   Inside Core Selling Area</a>
           </p>
           <p>
-            <input type="checkbox" data-property-value="true" data-property-name="outside_csa" class="showhide"checked/><a href="#" data-property-value="true" data-property-name="outside_csa" class="bouncepins"> Outside Core Selling Area</a>
+            <input type="checkbox" data-property-value="true" data-property-name="outside_csa" class="showhide"checked/>  <a href="#" data-property-value="true" data-property-name="outside_csa" class="bouncepins">Outside Core Selling Area</a>
           </p>
 
           <select data-placeholder="Filter by Zipcodes" style="width:200px;" id="zips" multiple class="chzn-select-zips" tabindex="8">
@@ -60,21 +76,6 @@
           <br />
         </div>
     </div>
-    <h3><a href="#">Filter By Merchant Category</a></h3>
-    <div>
-        <div>
-          <select data-placeholder="Filter by Categories" style="width:200px;" id="categories" multiple class="chzn-select-categories" tabindex="8">
-            <option value=""></option>
-            <% @market.categories_index.each do |category, freq| %>
-            <option><%= category %></option>
-            <% end %>
-          </select>           
-          <a class="category-reset">Clear Category Filters</a> ​
-          <br />
-          <br />
-          <br />
-          <br />
-        </div>
-    </div>
+    
   </div>
 </div>

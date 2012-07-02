@@ -1,6 +1,25 @@
+<div id="menuwrapper" class="pull-right">
+  <ul>
+    <li><a href="#"><%= current_user.email %></a>
+      <ul>
+        <li><%= link_to "All Markets", markets_path %></li>
+        <li><%= link_to "Edit My Markets", user_path(current_user) %></li>
+        <li><%= link_to "Place Me on Map", "#", :id => "placeme" %></li>
+        <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+
 <p class="pull-right" id="toplinks">
-	<a class='iframestats' href='<%="#{@market.id}/stats"%>'>View Market Statistics</a> |
-	<a class='iframemarkets' href='/markets'>View all Markets</a> |
-	<a class='iframemarkets' href='<%="/users/#{current_user.id}"%>'>Edit My Markets</a> |
-	<a href="#" id="placeme">Place me on map</a>
+  <% if @market %>
+  	<%= link_to "#{@market.name} Deals", market_path(@market) %> |
+  	<%= link_to "#{@market.name} Statistics", market_stats_path(@market) %> |
+  <% end %>
+
+
+  
+  
 </p>
+

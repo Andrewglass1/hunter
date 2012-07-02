@@ -1,4 +1,4 @@
-<h1 class="market_title"><%= @market.name %>
+<h1 class="market_title"><%= @market ? @market.name : @title %>
   <br />
   <select data-placeholder="Select a market" style="width:200px;" id="markets" class="chzn-select-markets" tabindex="8">
       <% Market.all.each do |market| %>

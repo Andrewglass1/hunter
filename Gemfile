@@ -28,3 +28,4 @@ gem "geocoder"
 gem 'devise'
 gem 'omniauth'
 gem 'chosen-rails'
+gem 'redis-store', '~> 1.0.0'

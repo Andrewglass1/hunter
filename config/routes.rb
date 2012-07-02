@@ -4,7 +4,6 @@ Hunter::Application.routes.draw do
 
   root :to => 'welcome#show'
   resources :markets
-
   resources :deals
   resources :merchants
   resources :users, :only => [:show]

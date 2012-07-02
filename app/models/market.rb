@@ -51,11 +51,9 @@ class Market < ActiveRecord::Base
     index.sort_by { |key, value| value }.reverse
   end
 
-
-
   def graphael_data_categories
-    revenues = categories_index_with_total_revenue.collect {|category,revenue| revenue}
-    legend = categories_index_with_total_revenue.collect {|category,revenue| "%%.%% - #{category.html_safe}" }
+    revenues = Redis.new["graphael_data_categories_revenues_#{id}"] ||= categories_index_with_total_revenue.collect {|category,revenue| revenue}
+    legend = Redis.new["graphael_data_categories_legend_#{id}"] ||= categories_index_with_total_revenue.collect {|category,revenue| "%%.%% - #{category.html_safe}" }
     [revenues, legend]
   end
 
@@ -71,8 +69,8 @@ class Market < ActiveRecord::Base
   end
 
   def self.graphael_data_categories
-    revenues = Market.categories_index_with_total_revenue.collect {|category,revenue| revenue}
-    legend = Market.categories_index_with_total_revenue.collect {|category,revenue| "%%.%% - #{category.html_safe}" }
+    revenues = Redis.new["graphael_data_categories_revenues_class"] ||= Market.categories_index_with_total_revenue.collect {|category,revenue| revenue}
+    legend = Redis.new["graphael_data_categories_legend_class"] ||= Market.categories_index_with_total_revenue.collect {|category,revenue| "%%.%% - #{category.html_safe}" }
     [revenues, legend]
   end
 
@@ -88,8 +86,8 @@ class Market < ActiveRecord::Base
   end
 
   def graphael_data_providers
-    providers = providers_index_with_total_revenue.collect {|provider,revenue| revenue}
-    legend    = providers_index_with_total_revenue.collect {|provider,revenue| "%%.%% - #{provider.html_safe}" }
+    providers = Redis.new["graphael_data_providers_providers_#{id}"] ||= providers_index_with_total_revenue.collect {|provider,revenue| revenue}
+    legend    = Redis.new["graphael_data_providers_legend_#{id}"] ||= providers_index_with_total_revenue.collect {|provider,revenue| "%%.%% - #{provider.html_safe}" }
     [providers, legend]
   end
 
@@ -105,8 +103,8 @@ class Market < ActiveRecord::Base
   end
 
   def self.graphael_data_providers
-    providers = Market.providers_index_with_total_revenue.collect {|provider,revenue| revenue}
-    legend    = Market.providers_index_with_total_revenue.collect {|provider,revenue| "%%.%% - #{provider.html_safe}" }
+    providers = Redis.new["graphael_data_providers_providers_class"] ||= Market.providers_index_with_total_revenue.collect {|provider,revenue| revenue}
+    legend = Redis.new["graphael_data_providers_legend_class"] ||= Market.providers_index_with_total_revenue.collect {|provider,revenue| "%%.%% - #{provider.html_safe}" }
     [providers, legend]
   end
 

@@ -31,11 +31,16 @@ class MarketsController < ApplicationController
   end
 
   def index
+    @title = "All Markets"
     @markets = Market.all
   end
 
   def stats
     @market = Market.find(params[:id])
+    @market_cats_pie_data, @market_cats_pie_legend = @market.graphael_data_categories
+    @all_markets_cats_pie_data, @all_markets_cats_pie_legend = Market.graphael_data_categories
+    @market_providers_pie_data, @market_providers_pie_legend = @market.graphael_data_providers
+    @all_markets_providers_pie_data, @all_markets_providers_pie_legend = Market.graphael_data_providers
   end
 
 end
