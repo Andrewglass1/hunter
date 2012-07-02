@@ -2,11 +2,14 @@ $(document).ready(function() {
 
   console.log(Gmaps.map)
 
-//accordion
+//accordion and colorbox
 
   $(function(){
-        $('#multiAccordion').multiAccordion();
+    $('#multiAccordion').multiAccordion();
   });
+
+  $(".iframestats").colorbox({iframe:true, width:"80%", height:"90%"});
+  $(".iframemarkets").colorbox({iframe:true, width:"50%", height:"50%"});
 
 //revenue
 
@@ -241,13 +244,26 @@ $(document).ready(function() {
     clearDates();
   });
 
-  //are the old and new dates here messed up?
   var clearDates = function() {
     $("#date-range").slider("values", 0, 0);
     $("#date-range").slider("values", 1, Market.max_days);
     DateRangeFilter.recent = 0;
     DateRangeFilter.oldest = Market.max_days;
     $("#filtered-dates").val(dateToYMD(calculateDate(Market.max_days)) + " - " + dateToYMD(calculateDate(0)));
+    applyAllFilters();
+  }
+
+  $('.date-move').click(function() {
+    days = $(this).attr('data-days')
+    datejump(days);
+  });
+
+  var datejump = function(days) {
+    $("#date-range").slider("values", 0, Market.max_days - days);
+    $("#date-range").slider("values", 1, Market.max_days);
+    DateRangeFilter.recent = 0;
+    DateRangeFilter.oldest = days;
+    $("#filtered-dates").val(dateToYMD(calculateDate(days)) + " - " + dateToYMD(calculateDate(0)));
     applyAllFilters();
   }
 
