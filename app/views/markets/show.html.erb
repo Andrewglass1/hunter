@@ -6,6 +6,7 @@
   <div class="row">
     <div class="well span12 pull-right" >
       <p class="pull-right" id="toplinks">
+        <%= link_to "View Market Statistics", market_stats_path(@market) %> |
         <%= link_to "View All Markets", markets_path %> |
         <%= link_to "Edit My Markets", user_path(current_user) %> |
         <a href="#" id="placeme">Place me on map</a>

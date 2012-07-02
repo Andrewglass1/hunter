@@ -1,3 +1,8 @@
+<h1> <%= @market.name %> Statistics</h1>
+<%= link_to "Back to Map", market_path(@market) %>
+</br>
+</br>
+
 <table class="table table-striped pretty">
   <tbody>
     <tr>
@@ -15,7 +20,7 @@
   //categories by market
 
     /* Title settings */    
-  title = "<%= @market.name %>" + " revenues by category";
+  title = "<%= @market.name %>" + " Revenues By Category";
   titleXpos = 480;
   titleYpos = 85;
 
