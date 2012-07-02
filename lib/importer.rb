@@ -3,8 +3,8 @@ module Importer
 require 'csv'
 extend ApplicationHelper
 
-DEAL_FILE_LOCATION = '/Users/andrewglass/Desktop/cleveland.csv'
-CSA_FILE_LOCATION = '/Users/andrewglass/Desktop/cleveland_csa.csv'
+DEAL_FILE_LOCATION = '/Users/andrewglass/Desktop/el_paso.csv'
+CSA_FILE_LOCATION = '/Users/andrewglass/Desktop/el_paso_csa.csv'
 
 
   def self.import
@@ -37,7 +37,7 @@ CSA_FILE_LOCATION = '/Users/andrewglass/Desktop/cleveland_csa.csv'
                 :discount => row['discount'],
                 :full_title => clean_characters(row['full_title']),
                 :price => row['price'],
-                :provider => row['site'],
+                :provider => clean_characters(row['site']),
                 :revenue => row['revenue'],
                 :revenue_index => row['rev_index'],
                 :short_title => clean_characters(row['short_title']),

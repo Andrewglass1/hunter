@@ -30,7 +30,7 @@
   <tbody>
     <% @deals.each do |deal| %>
     <tr>
-      <td><%= link_to deal.short_title, deal.deal_url, :target => "blank" %></td>
+      <td><%= link_to deal.short_title, deal.deal_url, :target => "_blank" %></td>
       <td><%= deal.date_added %></td>
       <td><%= deal.category %></td>
       <td><%= number_to_currency(deal.price, :unit => "$") %></td>

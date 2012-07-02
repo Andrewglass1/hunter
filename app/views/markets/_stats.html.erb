@@ -1,0 +1,139 @@
+
+</br>
+</br>
+
+<table class="table table-striped pretty">
+  <tbody>
+    <tr>
+		<td><div id="this_market_categories"></div></td>
+		<td><div id="all_market_categories"></div></td>
+	</tr>
+	<tr>
+		<td><div id="this_market_providers"></div></td>
+		<td><div id="all_market_providers"></div></td>
+	</tr>
+  </tbody>
+</table>
+
+
+
+<script type="text/javascript">
+  window.onload = function () {
+
+  //categories by market
+
+    /* Title settings */    
+   
+  titleXpos = 480;
+  titleYpos = 85;
+
+/* Pie Data */
+  pieRadius = 130;
+  pieXpos = 150;
+  pieYpos = 180;
+
+  pieLegendPos = "east";
+
+  MarketCatstitle = "<%= @market.name %>" + " Revenues By Category";
+  MarketCatspieData = <%=raw @market.graphael_data_categories[0] %>;
+  MarketCatspieLegend = <%=raw @market.graphael_data_categories[1] %>;
+
+  //market categories
+
+      var r = Raphael("this_market_categories");
+      r.g.text(titleXpos, titleYpos, MarketCatstitle).attr({"font-size": 20});
+      
+      var pie = r.g.piechart(pieXpos, pieYpos, pieRadius, MarketCatspieData, {legend: MarketCatspieLegend, legendpos: pieLegendPos});
+      pie.hover(function () {
+          this.sector.stop();
+          this.sector.scale(1.1, 1.1, this.cx, this.cy);
+          if (this.label) {
+              this.label[0].stop();
+              this.label[0].scale(1.5);
+              this.label[1].attr({"font-weight": 800});
+          }
+      }, function () {
+          this.sector.animate({scale: [1, 1, this.cx, this.cy]}, 500, "bounce");
+          if (this.label) {
+              this.label[0].animate({scale: 1}, 500, "bounce");
+              this.label[1].attr({"font-weight": 400});
+          }
+      });
+
+   //all categories
+  
+  AllMarketsCatstitle = "All Markets Revenues By Category";
+  AllMarketsCatspieData = <%=raw Market.graphael_data_categories[0] %>;
+  AllMarketsCatspieLegend = <%=raw Market.graphael_data_categories[1] %>;
+    
+      var r = Raphael("all_market_categories");
+      r.g.text(titleXpos, titleYpos, AllMarketsCatstitle).attr({"font-size": 20});
+      
+      var pie = r.g.piechart(pieXpos, pieYpos, pieRadius, AllMarketsCatspieData, {legend: AllMarketsCatspieLegend, legendpos: pieLegendPos});
+      pie.hover(function () {
+          this.sector.stop();
+          this.sector.scale(1.1, 1.1, this.cx, this.cy);
+          if (this.label) {
+              this.label[0].stop();
+              this.label[0].scale(1.5);
+              this.label[1].attr({"font-weight": 800});
+          }
+      }, function () {
+          this.sector.animate({scale: [1, 1, this.cx, this.cy]}, 500, "bounce");
+          if (this.label) {
+              this.label[0].animate({scale: 1}, 500, "bounce");
+              this.label[1].attr({"font-weight": 400});
+          }
+      });
+
+     //market providers
+      MarketProviderstitle = "<%= @market.name %>" + " Revenues By Provider";
+      MarketProviderspieData = <%=raw @market.graphael_data_providers[0] %>;
+  	  MarketProviderspieLegend = <%=raw @market.graphael_data_providers[1] %>;
+
+      var r = Raphael("this_market_providers");
+      r.g.text(titleXpos, titleYpos, MarketProviderstitle).attr({"font-size": 20});
+      
+      var pie = r.g.piechart(pieXpos, pieYpos, pieRadius, MarketProviderspieData, {legend: MarketProviderspieLegend, legendpos: pieLegendPos});
+      pie.hover(function () {
+          this.sector.stop();
+          this.sector.scale(1.1, 1.1, this.cx, this.cy);
+          if (this.label) {
+              this.label[0].stop();
+              this.label[0].scale(1.5);
+              this.label[1].attr({"font-weight": 800});
+          }
+      }, function () {
+          this.sector.animate({scale: [1, 1, this.cx, this.cy]}, 500, "bounce");
+          if (this.label) {
+              this.label[0].animate({scale: 1}, 500, "bounce");
+              this.label[1].attr({"font-weight": 400});
+          }
+      });
+
+      //market providers
+      AllMarketsProviderstitle = "All Markets Revenues By Provider";
+      AllMarketsProviderspieData = <%=raw Market.graphael_data_providers[0] %>;
+  	  AllMarketsProviderspieLegend = <%=raw Market.graphael_data_providers[1] %>;
+
+      var r = Raphael("all_market_providers");
+      r.g.text(titleXpos, titleYpos, AllMarketsProviderstitle).attr({"font-size": 20});
+      
+      var pie = r.g.piechart(pieXpos, pieYpos, pieRadius, AllMarketsProviderspieData, {legend: AllMarketsProviderspieLegend, legendpos: pieLegendPos});
+      pie.hover(function () {
+          this.sector.stop();
+          this.sector.scale(1.1, 1.1, this.cx, this.cy);
+          if (this.label) {
+              this.label[0].stop();
+              this.label[0].scale(1.5);
+              this.label[1].attr({"font-weight": 800});
+          }
+      }, function () {
+          this.sector.animate({scale: [1, 1, this.cx, this.cy]}, 500, "bounce");
+          if (this.label) {
+              this.label[0].animate({scale: 1}, 500, "bounce");
+              this.label[1].attr({"font-weight": 400});
+          }
+      });
+  };
+</script>

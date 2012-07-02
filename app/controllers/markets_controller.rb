@@ -34,8 +34,4 @@ class MarketsController < ApplicationController
     @markets = Market.all
   end
 
-  def stats
-    @market = Market.find(params[:id])
-  end
-
 end

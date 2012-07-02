@@ -24,6 +24,20 @@ $(document).ready(function() {
       }
     });
 
+  $('.revenue-dollar').click(function() {
+    dollarRevenue();
+  });
+
+  var dollarRevenue = function() {
+    $("#revenue-range").slider("values", 0, 1);
+    $("#revenue-range").slider("values", 1, Market.max_revenue);
+    RevenueRangeFilter.min = 1;
+    RevenueRangeFilter.max = Market.max_revenue;
+    $( "#filtered-rev" ).val( "$" + 1 + " - $" + RevenueRangeFilter.max );
+    applyAllFilters();
+  }
+
+
 //properties
 
   var AllPropertyFilters = [];

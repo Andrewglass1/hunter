@@ -6,9 +6,9 @@
   <div class="row">
     <div class="well span12 pull-right" >
       <p class="pull-right" id="toplinks">
-        <%= link_to "View Market Statistics", market_stats_path(@market) %> |
-        <%= link_to "View All Markets", markets_path %> |
-        <%= link_to "Edit My Markets", user_path(current_user) %> |
+        <a data-toggle="modal" href="#myModal" >View Market Statistics</a> |
+        <%= link_to "View All Markets", markets_path, :target => "_blank" %> |
+        <%= link_to "Edit My Markets", user_path(current_user), :target => "_blank" %> |
         <a href="#" id="placeme">Place me on map</a>
 
       </p>
@@ -41,6 +41,7 @@
                 <p>
                   <input type="text" id="filtered-rev"/>
                 </p>
+                <a class="revenue-dollar">$1 +</a> |
                 <a class="revenue-reset">Clear Revenue Filter</a>
               </div>
           </div>
@@ -84,7 +85,7 @@
                   <% @market.categories_index.each do |category, freq| %>
                   <option><%= category %></option>
                   <% end %>
-                </select>
+                </select>           
                 <a class="category-reset">Clear Category Filters</a> ​
                 <br />
                 <br />
@@ -99,6 +100,17 @@
   </div>
 </div>
 
+<div class="modal hide" id="myModal">
+  <div class="modal-header">
+    <h3> <%= @market.name %> All Time Statistics</h3>
+  </div>
+  <div class="modal-body">
+    <%= render :partial => "stats" %>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+  </div>
+</div>
 
 <script type="text/javascript">
   var Market = {

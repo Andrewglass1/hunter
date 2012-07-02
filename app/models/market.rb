@@ -32,6 +32,7 @@ class Market < ActiveRecord::Base
     csa_zips.collect {|csazip| csazip.csa_zipcode}
   end
 
+
   def categories_index
     cats = deals.map(&:category).compact
     index = {}
@@ -50,7 +51,9 @@ class Market < ActiveRecord::Base
     index.sort_by { |key, value| value }.reverse
   end
 
-  def graphael_data
+
+
+  def graphael_data_categories
     revenues = categories_index_with_total_revenue.collect {|category,revenue| revenue}
     legend = categories_index_with_total_revenue.collect {|category,revenue| "%%.%% - #{category.html_safe}" }
     [revenues, legend]
@@ -67,10 +70,44 @@ class Market < ActiveRecord::Base
     index.sort_by { |key, value| value }.reverse
   end
 
-  def self.graphael_data
+  def self.graphael_data_categories
     revenues = Market.categories_index_with_total_revenue.collect {|category,revenue| revenue}
     legend = Market.categories_index_with_total_revenue.collect {|category,revenue| "%%.%% - #{category.html_safe}" }
     [revenues, legend]
+  end
+
+  def providers_index_with_total_revenue
+    index = {}
+    providers = deals.map(&:provider).uniq.compact
+    providers.each do |provider|
+      deals = Deal.where("provider = '#{provider}' AND market_id = #{id}")
+      revenue = deals.map(&:revenue).compact.sum
+      index[provider] = revenue
+    end
+    index.sort_by { |key, value| value }.reverse
+  end
+
+  def graphael_data_providers
+    providers = providers_index_with_total_revenue.collect {|provider,revenue| revenue}
+    legend    = providers_index_with_total_revenue.collect {|provider,revenue| "%%.%% - #{provider.html_safe}" }
+    [providers, legend]
+  end
+
+  def self.providers_index_with_total_revenue
+    index = {}
+    providers = Deal.all.map(&:provider).uniq.compact
+    providers.each do |provider|
+      deals = Deal.where("provider = '#{provider}'")
+      revenue = deals.map(&:revenue).compact.sum
+      index[provider] = revenue
+    end
+    index.sort_by { |key, value| value }.reverse
+  end
+
+  def self.graphael_data_providers
+    providers = Market.providers_index_with_total_revenue.collect {|provider,revenue| revenue}
+    legend    = Market.providers_index_with_total_revenue.collect {|provider,revenue| "%%.%% - #{provider.html_safe}" }
+    [providers, legend]
   end
 
   def zips_index
