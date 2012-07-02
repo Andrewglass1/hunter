@@ -10,5 +10,7 @@ Hunter::Application.routes.draw do
   resources :users, :only => [:show]
   resources :user_markets
   resources :welcome, :only => [:show]
+  match '/markets/:id/stats' => 'markets#stats', :as => :market_stats
+
 
 end

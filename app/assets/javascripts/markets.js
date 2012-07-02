@@ -2,6 +2,12 @@ $(document).ready(function() {
 
   console.log(Gmaps.map)
 
+//accordion
+
+  $(function(){
+        $('#multiAccordion').multiAccordion();
+  });
+
 //revenue
 
   var RevenueRangeFilter = {
@@ -279,10 +285,6 @@ $(document).ready(function() {
     return $.datepicker.formatDate('M dd yy', date);
   };
 
-//accordion
 
-  $(function(){
-        $('#multiAccordion').multiAccordion();
-  });
 
 });
