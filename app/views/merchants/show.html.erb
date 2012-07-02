@@ -20,11 +20,10 @@
 <table class="table table-striped pretty">
   <thead>
     <tr>
-      <th><%= sortable "short_title", "Title" %></th>
-      <th><%= sortable "date_added", "Date" %></th>
-      <th><%= sortable "category", "Category" %></th>
-      <th><%= sortable "price", "Price" %></th>
-      <th><%= sortable "revenue", "Revenue" %></th>
+      <th><%= "Title" %></th>
+      <th><%= "Date" %></th>
+      <th><%= "Category" %></th>
+      <th><%= "Revenue" %></th>
     </tr>
   </thead>
   <tbody>
@@ -33,8 +32,7 @@
       <td><%= link_to deal.short_title, deal.deal_url, :target => "_blank" %></td>
       <td><%= deal.date_added %></td>
       <td><%= deal.category %></td>
-      <td><%= number_to_currency(deal.price, :unit => "$") %></td>
-      <td><%= number_to_currency(deal.revenue, :unit => "$") %></td>
+      <td><%= deal.revenue > 0 ? number_to_currency(deal.revenue, :unit => "$") : "No Revenue Reported" %></td>
     <% end %>
     </tr>
   </tbody>

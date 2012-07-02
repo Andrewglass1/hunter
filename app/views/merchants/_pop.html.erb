@@ -9,6 +9,11 @@
 <% merchant.deals_sorted.each do |deal| %>
 <p><%= deal.date_added.strftime("%B %d, %Y") if deal.date_added %></p>
 <p><%= link_to "#{deal.provider} : #{deal.short_title}", deal.deal_url, :target => "_blank" %></p>
-<p><%="Revenue: #{number_to_currency(deal.revenue, :unit => '$')}...Sold #{deal.sold} @ #{number_to_currency(deal.price, :unit => '$')}"%></p>
+<% if deal.revenue > 0 %>
+<p><%="Revenue: #{number_to_currency(deal.revenue, :unit => '$')}" %></p>
+<p><%="Sold #{deal.sold}"%></p>
+<% else %>
+<p>Revenue not reported</p>
+<% end %>
 <hr>
 <% end %>

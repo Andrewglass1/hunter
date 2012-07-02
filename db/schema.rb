@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120627182530) do
+ActiveRecord::Schema.define(:version => 20120702133222) do
 
   create_table "csa_zips", :force => true do |t|
     t.integer  "market_id"
@@ -30,13 +30,6 @@ ActiveRecord::Schema.define(:version => 20120627182530) do
     t.string   "provider"
     t.string   "full_title"
     t.string   "short_title"
-    t.float    "price"
-    t.float    "value"
-    t.float    "discount"
-    t.integer  "sold"
-    t.string   "sold_out"
-    t.float    "revenue"
-    t.float    "revenue_index"
     t.string   "deal_url"
     t.string   "category"
     t.datetime "created_at",    :null => false
@@ -63,6 +56,18 @@ ActiveRecord::Schema.define(:version => 20120627182530) do
     t.string   "website"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+  end
+
+  create_table "offers", :force => true do |t|
+    t.integer  "deal_id"
+    t.float    "price"
+    t.float    "value"
+    t.float    "discount"
+    t.integer  "sold"
+    t.float    "revenue"
+    t.float    "revenue_index"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "user_markets", :force => true do |t|

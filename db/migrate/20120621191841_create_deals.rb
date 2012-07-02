@@ -10,13 +10,6 @@ class CreateDeals < ActiveRecord::Migration
       t.string :provider
       t.string :full_title
       t.string :short_title
-      t.float :price
-      t.float :value
-      t.float :discount
-      t.integer :sold
-      t.string :sold_out
-      t.float :revenue
-      t.float :revenue_index
       t.string :deal_url
       t.string :category
 

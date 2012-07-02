@@ -3,8 +3,8 @@ module Importer
 require 'csv'
 extend ApplicationHelper
 
-DEAL_FILE_LOCATION = '/Users/andrewglass/Desktop/el_paso.csv'
-CSA_FILE_LOCATION = '/Users/andrewglass/Desktop/el_paso_csa.csv'
+DEAL_FILE_LOCATION = '/Users/andrewglass/Desktop/cleveland.csv'
+CSA_FILE_LOCATION = '/Users/andrewglass/Desktop/cleveland_csa.csv'
 
 
   def self.import
@@ -26,7 +26,7 @@ CSA_FILE_LOCATION = '/Users/andrewglass/Desktop/el_paso_csa.csv'
                 :website => row['merchant_website'],
                 :phone => row['phone'])
 
-        Deal.find_or_create_by_merchant_id_and_date_added(
+        deal = Deal.find_or_create_by_merchant_id_and_date_added(
                 :yipit_deal_id => row['id'],
                 :market_id => market.id,
                 :merchant_id => merchant.id,
@@ -34,16 +34,17 @@ CSA_FILE_LOCATION = '/Users/andrewglass/Desktop/el_paso_csa.csv'
                 :date_added => Date.strptime(row['date_added'], "%m/%d/%Y"),
                 :date_ended => Date.strptime(row['date_ended'], "%m/%d/%Y"),
                 :deal_url => row['deal_url'],
-                :discount => row['discount'],
                 :full_title => clean_characters(row['full_title']),
-                :price => row['price'],
                 :provider => clean_characters(row['site']),
+                :short_title => clean_characters(row['short_title']))
+        deal.offers.create(
+                :discount => row['discount'],
                 :revenue => row['revenue'],
                 :revenue_index => row['rev_index'],
-                :short_title => clean_characters(row['short_title']),
+                :price => row['price'],
                 :sold => row['sold'],
-                :sold_out =>row ['sold_out'],
-                :value => row['value'])
+                :value => row['value']
+          )
       end
     end
   end

@@ -1,18 +1,25 @@
 class Deal < ActiveRecord::Base
   
-  attr_accessible :merchant_id, :market_id,  :category, :date_added,
-                  :discount,    :full_title, :price,    :provider,
-                  :revenue,     :date_ended, :value,    :yipit_deal_id,
-                  :sold,        :sold_out,   :deal_url, :revenue_index,     
-                  :short_title
+  attr_accessible :merchant_id, :market_id,  :category,   :date_added,
+                  :full_title,  :provider,   :date_ended, :yipit_deal_id,
+                  :deal_url,    :short_title
   
   after_create :standardize_provider
 
+  has_many :offers
   belongs_to :merchant
   belongs_to :market
 
   def merchant_deal_count
     merchant.deals.count
+  end
+
+  def revenue
+    offers.map(&:revenue).compact.sum
+  end
+
+  def sold
+    offers.map(&:sold).compact.sum
   end
 
   def standardize_provider
