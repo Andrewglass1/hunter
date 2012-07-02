@@ -1,4 +1,15 @@
 $(document).ready(function() {
+
+  //markets
+
+  $(".chzn-select-markets").chosen();
+
+  $(".chzn-select-markets").change(function(){
+    var id = $(".chzn-select-markets option:selected").attr('data-market-id')
+    var source = '/markets/'+ id
+    window.location.href = source;
+  });
+
   if( $('#map').length ){
     console.log(Gmaps.map)
 
@@ -7,9 +18,6 @@ $(document).ready(function() {
     $(function(){
       $('#multiAccordion').multiAccordion();
     });
-
-    $(".iframestats").colorbox({iframe:true, width:"80%", height:"90%"});
-    $(".iframemarkets").colorbox({iframe:true, width:"50%", height:"50%"});
 
   //revenue
 
@@ -118,17 +126,6 @@ $(document).ready(function() {
     $("#zips").change(function(){
       ZipFilter = $(this).val();
       applyAllFilters();
-    });
-
-
-  //markets
-
-    $(".chzn-select-markets").chosen();
-
-    $(".chzn-select-markets").change(function(){
-      var id = $(".chzn-select-markets option:selected").attr('data-market-id')
-      var source = '/markets/'+ id
-      window.location.href = source;
     });
 
   //filters

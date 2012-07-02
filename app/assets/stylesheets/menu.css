@@ -1,0 +1,100 @@
+    
+/* Define the body style */
+body {
+    font-family:Arial;
+    font-size:12px;
+}
+
+/* We remove the margin, padding, and list style of UL and LI components */
+#menuwrapper ul, #menuwrapper ul li{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+
+/* We float the li list to the left and apply background color and border right white and set the height to 25px. Note you can ignore the height if you do not want
+*/
+#menuwrapper ul li{
+    height:25px;
+    line-height:25px;
+}
+
+/* We apply the background hover color when user hover the mouse over of the li component */
+#menuwrapper ul li:hover{
+    position:relative;
+}
+
+/* We apply the link style */
+#menuwrapper ul li a{
+    padding:0px 15px;
+    color:#ffffff;
+    display:inline-block;
+    text-decoration:none;
+}
+
+/**** SECOND LEVEL MENU ****/
+/* We make the position to absolute for flyout menu and hidden the ul until the user hover the parent li item */
+#menuwrapper ul li ul{
+    position:absolute;
+    display:none;
+}
+
+/* When user has hovered the li item, we show the ul list by applying display:block, note: 25px is the menu height.  */
+#menuwrapper ul li:hover ul{
+    left:0;
+    top:25px;
+    display:block;
+}
+
+/* As the parent li has float:left property, we overwrite for the submenu (level 2) to float none (normal position)  */
+#menuwrapper ul li ul li{
+    float:none;
+    width:150px;
+    background-color:#D1D1D1;
+}
+
+/* We change the background color for the level 2 submenu when hovering the menu */
+#menuwrapper ul li:hover ul li:hover{
+    background-color:#D1D1D1;
+}
+
+/* We style the color of level 2 links */
+#menuwrapper ul li ul li a{
+    color:#454444;
+    display:inline-block;
+    width:150px;
+}
+
+/**** THIRD LEVEL MENU ****/
+/* We need to hide the 3rd menu, when hovering the first level menu */
+#menuwrapper ul li:hover ul li ul{
+    position:absolute;
+    display:none;
+}
+
+/* We show the third level menu only when they hover the second level menu parent */
+#menuwrapper ul li:hover ul li:hover ul{
+    display:block;
+    left:150px;
+    top:0;
+}
+
+/* We change the background color for the level 3 submenu*/
+#menuwrapper ul li:hover ul li:hover ul li{
+    background:#86d3fa;
+}
+
+/* We change the background color for the level 3 submenu when hovering the menu */
+#menuwrapper ul li:hover ul li:hover ul li:hover{
+    background:#358ebc;
+}
+
+/* We change the level 3 link color */
+#menuwrapper ul li:hover ul li:hover ul li a{
+    color:#ffffff;
+}
+
+/* Clear float */
+.clear{
+    clear:both;
+}

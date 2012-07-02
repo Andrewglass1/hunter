@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The Merchant Hunter</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <%= image_tag "ls_logo.png", :class=> "pull-left" %>
+      <a class="brand">Merchant Hunter</a>
+      <div class="nav-collapse">
+        <ul class="nav">
+        </ul>
+      </div>
+      <div id="user_nav" class="pull-right">
+        <% if user_signed_in? %>
+          Signed in as <%= current_user.email %>. Not you?
+          <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+        <% else %>
+          <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+</br>
+</br>
+</br>
+</br>
+
+<% flash.each do |key, msg| %>
+  <div id="<%= key %>">
+    <p><%= msg %></p>
+  </div>
+<% end %>
+
+<div class="yield">
+
+</br>
+</br>
+
+<div class="container">
+  <div class="row">
+    <div class="well span12 pull-right" >
+      <div id='dynamic-navigation'>
+        <%= render :partial => 'markets/market_navigation' %>
+      </div>
+
+      <%= render :partial => 'markets/market_title' %>
+      <div id='dynamic-content'>
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= yield :scripts %>
+
+<% if @market %>
+  <script type="text/javascript">
+    var Market = {
+      min_revenue: <%= @market.min_revenue %>,
+      max_revenue: <%= @market.max_revenue %>,
+      max_days:  <%= @market.days_for_selector %>
+    }
+  </script>
+<% end %>
+
+</div>
+
+</body>
+</html>
