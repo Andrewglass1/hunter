@@ -1,0 +1,9 @@
+<h1 class="market_title"><%= @market.name %>
+  <br />
+  <select data-placeholder="Select a market" style="width:200px;" id="markets" class="chzn-select-markets" tabindex="8">
+      <% Market.all.each do |market| %>
+      <option value=""></option> 
+      <option data-market-id="<%=market.id%>"><%= market.name %></option>
+      <% end %>
+  </select>
+</h1>

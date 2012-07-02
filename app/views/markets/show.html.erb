@@ -4,102 +4,10 @@
 <div class="container">
   <div class="row">
     <div class="well span12 pull-right" >
-      <p class="pull-right" id="toplinks">
-        <a class='iframestats' href='<%="#{@market.id}/stats"%>'>View Market Statistics</a> |
-        <a class='iframemarkets' href='/markets'>View all Markets</a> |
-        <a class='iframemarkets' href='<%="/users/#{current_user.id}"%>'>Edit My Markets</a> |
-        <a href="#" id="placeme">Place me on map</a>
-      </p>
-      <h1 class="market_title"><%= @market.name %>
-      <br />
-      <select data-placeholder="Select a market" style="width:200px;" id="markets" class="chzn-select-markets" tabindex="8">
-          <% Market.all.each do |market| %>
-          <option value=""></option> 
-          <option data-market-id="<%=market.id%>"><%= market.name %></option>
-          <% end %>
-      </select>
-      </h1>
-      <div class="sidebar_well span3">
-          <h3 class="deals-returned"><%=@market.merchants.count %> Merchants Returned</h3>
-          <a class="filters-reset">Clear All Filters</a>
-        <div id="multiAccordion">
-          <h3><a href="#">Filter By Deal Provider</a></h3>
-          <div>
-              <div id="provider-boxes">
-                <p><input type="checkbox" name="provider" data-property-value="true" data-property-name="run_with_gpn" class="showhide"checked/><a href="#" data-property-value="true" data-property-name="run_with_gpn" class="bouncepins">  Groupon Merchants</a></p>
-                <p><input type="checkbox" name="provider" data-property-value="true" data-property-name="run_with_ls" class="showhide"checked/><a href="#" data-property-value="true" data-property-name="run_with_ls" class="bouncepins">  LivingSocial Merchants</a></p>
-                <p><input type="checkbox" name="provider" data-property-value="true" data-property-name="third_party" class="showhide"checked/><a href="#" data-property-value="true" data-property-name="third_party" class="bouncepins">  Only Run with Third Party</a></p>
-                <a class="provider-reset">Clear Provider Filter</a>
-              </div>
-          </div>
-          <h3><a href="#">Filter By Revenue</a></h3>
-          <div>
-              <div>
-                <div id='revenue-range'></div>
-                <p>
-                  <input type="text" id="filtered-rev"/>
-                </p>
-                <a class="revenue-dollar">$1 +</a> |
-                <a class="revenue-reset">Clear Revenue Filter</a>
-              </div>
-          </div>
-          <h3><a href="#">Filter by Run Date</a></h3>
-          <div>
-              <div>
-                <div id='date-range'></div>
-                <p>
-                  <input type="text" id="filtered-dates"/>
-                </p>
-                <p><a class="date-reset">Clear Date Filter</a></p>
-                <p> Past:
-                <a class="date-move" data-days='30'>30</a> |
-                <a class="date-move" data-days='90'>90</a> |
-                <a class="date-move" data-days='180'>180</a> |
-                <a class="date-move" data-days='360'>360</a>
-              </p>
-              </div>
-          </div>
-          <h3><a href="#">Filter By Core Selling Area/Zip</a></h3>
-          <div>
-              <div id="zip-boxes">
-                <p>
-                  <input type="checkbox" data-property-value="true" data-property-name="csa" class="showhide"checked/><a href="#" data-property-value="true" data-property-name="csa" class="bouncepins"> Inside Core Selling Area</a>
-                </p>
-                <p>
-                  <input type="checkbox" data-property-value="true" data-property-name="outside_csa" class="showhide"checked/><a href="#" data-property-value="true" data-property-name="outside_csa" class="bouncepins"> Outside Core Selling Area</a>
-                </p>
-
-                <select data-placeholder="Filter by Zipcodes" style="width:200px;" id="zips" multiple class="chzn-select-zips" tabindex="8">
-                  <option value=""></option>
-                  <% @market.zips_index.each do |zip, freq| %>
-                  <option><%= zip %></option>
-                  <% end %>
-                </select>
-                <a class="zip-reset">Clear Zip Filters</a>
-                <br />
-                <br />
-                <br />
-              </div>
-          </div>
-          <h3><a href="#">Filter By Merchant Category</a></h3>
-          <div>
-              <div>
-                <select data-placeholder="Filter by Categories" style="width:200px;" id="categories" multiple class="chzn-select-categories" tabindex="8">
-                  <option value=""></option>
-                  <% @market.categories_index.each do |category, freq| %>
-                  <option><%= category %></option>
-                  <% end %>
-                </select>           
-                <a class="category-reset">Clear Category Filters</a> ​
-                <br />
-                <br />
-                <br />
-                <br />
-              </div>
-          </div>
-        </div>
-      </div>
-      <div class="span9"><%= gmaps(@gmap_options) %></div>
+      <%= render :partial => 'market_navigation' %>
+      <%= render :partial => 'market_title' %>
+      <%= render :partial => 'deals_sidebar' %>
+      <%= render :partial => 'map' %>
     </div>
   </div>
 </div>
@@ -112,8 +20,4 @@
     max_days:  <%= @market.days_for_selector %>
   }
 </script>
-
-
-
-
 
