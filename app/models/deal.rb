@@ -23,7 +23,7 @@ class Deal < ActiveRecord::Base
   end
 
   def standardize_provider
-    if ["Living Social", "Livingsocial", "livingsocial", "Living Social Adventures", "Living Social Family Edition"].include?(provider)
+    if ["Living Social", "Livingsocial", "livingsocial", "Living Social Adventures", "LivingSocial Adventures","Living Social Family Edition", "LivingSocial Family Edition", "LivingSocial"].include?(provider)
       self.update_attribute(:provider, "livingsocial")
     elsif ["Groupon", "Groupon Live"].include?(provider)
       self.update_attribute(:provider, "Groupon")

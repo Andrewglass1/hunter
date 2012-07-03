@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+  $("#notice").stop().fadeOut(2000)
   //markets
 
   $(".chzn-select-markets").chosen();
@@ -11,9 +12,8 @@ $(document).ready(function() {
   });
 
   if( $('#map').length ){
-    console.log(Gmaps.map)
 
-  //accordion and colorbox
+  //accordion
 
     $(function(){
       $('#multiAccordion').multiAccordion();

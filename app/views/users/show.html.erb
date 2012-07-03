@@ -18,7 +18,9 @@
       <% @user.markets.each do |market| %>
       <tr>
         <td><h2><%= link_to market.name, market_path(market), :target => "_top" %></h2></td>
-        <td><%= link_to 'Remove from My Markets', current_user.user_markets.find_by_market_id(market.id), :method => :delete, :class => 'btn btn-large' %></td>
+        <td><%= link_to(current_user.user_markets.find_by_market_id(market.id), :method => :delete, :class => 'btn btn-danger btn-large') do %>
+           <i class="icon-white icon-remove"></i> Remove from My Markets</td>
+          <% end %>
       </tr>
       <% end %>
     </tbody>
@@ -26,3 +28,4 @@
 </div>
 
 <% end %>
+

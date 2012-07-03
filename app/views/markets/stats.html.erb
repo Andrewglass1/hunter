@@ -1,15 +1,15 @@
-  <table class="table pretty">
-    <tbody>
-      <tr>
-    		<td class="chart"><div id="this_market_categories"></div></td>
-    		<td class="chart"><div id="all_market_categories"></div></td>
-    	</tr>
-      <tr>
-    		<td class="chart"><div id="this_market_providers"></div></td>
-    		<td class="chart"><div id="all_market_providers"></div></td>
+<table class="table table-bordered pretty">
+  <tbody>
+    <tr>
+  	<td class="chart"><div id="this_market_categories"></div></td>
+  	<td class="chart"><div id="all_market_categories"></div></td>
+  	</tr>
+    <tr>
+  	<td class="chart"><div id="this_market_providers"></div></td>
+  	<td class="chart"><div id="all_market_providers"></div></td>
   	  </tr>
-    </tbody>
-  </table>
+  </tbody>
+</table>
 
   <script type="text/javascript">
     window.onload = function () {
@@ -27,7 +27,7 @@
 
     pieLegendPos = "east";
 
-    MarketCatstitle = "<%= @market.name %>" + " Revenues By Category";
+    MarketCatstitle = "<%= @market.name %>:" + " Revenues By Category";
     MarketCatspieData = <%= raw @market_cats_pie_data %>;
     MarketCatspieLegend = <%= raw @market_cats_pie_legend %>;
 
@@ -55,7 +55,7 @@
 
      //all categories
     
-    AllMarketsCatstitle = "All Markets Revenues By Category";
+    AllMarketsCatstitle = "All Markets: Revenue By Category";
     AllMarketsCatspieData = <%=raw @all_markets_cats_pie_data %>;
     AllMarketsCatspieLegend = <%=raw @all_markets_cats_pie_legend %>;
       
@@ -80,7 +80,7 @@
         });
 
        //market providers
-        MarketProviderstitle = "<%= @market.name %>" + " Revenues By Provider";
+        MarketProviderstitle = "<%= @market.name %>:" + " Revenues By Provider";
         MarketProviderspieData = <%=raw @market_providers_pie_data %>;
     	  MarketProviderspieLegend = <%=raw @market_providers_pie_legend %>;
 
@@ -105,7 +105,7 @@
         });
 
         //market providers
-        AllMarketsProviderstitle = "All Markets Revenues By Provider";
+        AllMarketsProviderstitle = "All Markets: Revenue By Provider";
         AllMarketsProviderspieData = <%=raw @all_markets_providers_pie_data %>;
     	  AllMarketsProviderspieLegend = <%=raw @all_markets_providers_pie_legend %>;
 

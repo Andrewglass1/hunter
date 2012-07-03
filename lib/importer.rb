@@ -11,8 +11,8 @@ CSA_FILE_LOCATION = '/Users/andrewglass/Desktop/cleveland_csa.csv'
     csv_text = File.read(DEAL_FILE_LOCATION)
     csv = CSV.parse(csv_text, {:headers => true, :header_converters => :symbol})
     csv.each do |row|
-      row = row.to_hash.with_indifferent_access
-      market   = Market.find_or_create_by_name(row['division'])
+      row    = row.to_hash.with_indifferent_access
+      market = Market.find_or_create_by_name(row['division'])
       if Geocoder::Calculations.distance_between([market.latitude, market.longitude],[row['latitude'],row['longitude']]) < 75
 
         merchant = Merchant.find_or_create_by_name_and_address(

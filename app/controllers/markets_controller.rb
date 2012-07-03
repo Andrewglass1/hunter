@@ -8,6 +8,7 @@ class MarketsController < ApplicationController
 
   def show
     @market    = Market.find(params[:id])
+    @markets   = Market.all
     @json      = @market.merchants.to_gmaps4rails do |merchant, marker|
       marker.infowindow render_to_string(:partial => "/merchants/pop", :locals => { :merchant => merchant})
       marker.title   "#{merchant.name}"

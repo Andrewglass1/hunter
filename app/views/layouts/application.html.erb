@@ -10,36 +10,23 @@
 
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
+    <%= image_tag "ls_logo.png", :class=> "pull-left" %>
+    <h1 class="brand pull-left">Merchant Hunter</h1>
     <div class="container">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-      <%= image_tag "ls_logo.png", :class=> "pull-left" %>
-      <a class="brand">Merchant Hunter</a>
-      <div class="nav-collapse">
-        <ul class="nav">
-        </ul>
-      </div>
-      <div id="user_nav" class="pull-right">
-        <% unless user_signed_in? %>
-          <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
-        <% end %>
-      </div>
     </div>
   </div>
 </div>
+</br>
 
-
+<div class="noticeholder">
 <% flash.each do |key, msg| %>
   </br>
   </br>
   <div id="<%= key %>">
     <p><%= msg %></p>
-    <div class="clear"></div>
   </div>
 <% end %>
+</div>
 
 <div class="yield">
 <%= yield %>

@@ -1,18 +1,21 @@
 <br />
 <br />
-<div class="container">
-	<div class="span10">
+<div class="row">
+	<div class="span8">
 		<div class="well" id="welcomewell">
 		<h1>Welcome to the Merchant Hunter</h1>
 		<br />
 		<br />
 		<h2>LivingSocial's new tool enabling you to target high quality merchants in your market</h2>
-
-
 		</div>
 		<h2 class="centered">Please log-in or create an account to proceed
-		<p><%= link_to '<button class="btn btn-large">Sign In</button>'.html_safe, new_user_session_path %>
-		<%= link_to '<button class="btn btn-large">Create an Account</button>'.html_safe, new_user_registration_path %></p>
+		<p><%= link_to '<button class="btn btn-warning btn-large">Sign In</button>'.html_safe, new_user_session_path %>
+		<%= link_to '<button class="btn btn btn-warning btn-large">Create an Account</button>'.html_safe, new_user_registration_path %></p>
 		</h2>
 	</div>
+	<div class="span8">
+		<%= image_tag "elmer.jpeg" %>
+	</div>
 </div>
+
+

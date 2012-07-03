@@ -12,12 +12,27 @@ class Merchant < ActiveRecord::Base
     deals.first.market
   end
 
+  def gmaps_query
+    query = name + "+" + address + "+" + city + "+" + zip
+    query.gsub(" ","+")
+  end
+
   def revenues
     deals.map(&:revenue).uniq.compact
   end
 
   def categories
     deals.map(&:category).uniq.compact
+  end
+
+  def provider_dates(provider)
+    provider_deals = deals.select {|deal| deal.date_added if deal.provider == provider }
+    provider_deals.collect { |deal| deal.date_added.strftime("%m/%d/%Y") }.join(", ")
+  end
+
+  def third_party_dates
+    third_party_deals = deals.select {|deal| deal.date_added if deal.provider != "Groupon" && deal.provider != "livingsocial" }
+    third_party_deals.collect { |deal| deal.date_added.strftime("%m/%d/%Y") }.join(", ")
   end
 
   def days_since_all_runs
@@ -110,8 +125,6 @@ class Merchant < ActiveRecord::Base
       "3"
     end
   end
-
-private
 
   def providers
     deals.map(&:provider).uniq.compact

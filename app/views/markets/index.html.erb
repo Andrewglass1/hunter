@@ -2,16 +2,20 @@
 <div class="span8 offset2">
   <table class="table table-condensed">
     <tbody>
-      <% @markets.each do |market| %>
+      <% @markets.sort_by {|market| market.name }.each do |market| %>
       <tr>
         <td><h2><%= link_to market.name, market_path(market), :target => "_top" %></h2></td>
         <td><% if current_user.user_markets.find_by_market_id(market.id) %>
-          <%= link_to 'Remove from My Markets', current_user.user_markets.find_by_market_id(market.id), :method => :delete, :class => 'btn btn-large' %>
+          <%= link_to(current_user.user_markets.find_by_market_id(market.id), :method => :delete, :class => 'btn btn-danger btn-large') do %>
+           <i class="icon-white icon-remove"></i> Remove from My Markets
+          <% end %>
         <% else %>
           <%= form_for UserMarket.new do |f| %>
             <%= f.hidden_field :user_id, { value: current_user.id} %>
             <%= f.hidden_field :market_id, { value: market.id} %>
-            <%= f.submit "Add to My Markets", :class => 'btn btn-large' %>
+            <button type="submit" class="btn btn-success btn-large">
+            <i class="icon-white icon-ok"></i> Add to My Markets
+            </button>
           <% end %>
         <% end %>
         <% end %>
@@ -20,3 +24,5 @@
     </tbody>
   </table>
 </div>
+
+btn btn-success btn-large

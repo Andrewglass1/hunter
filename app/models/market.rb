@@ -33,11 +33,8 @@ class Market < ActiveRecord::Base
   end
 
 
-  def categories_index
-    cats = deals.map(&:category).compact
-    index = {}
-    cats.each { |i| index.include?(i) ? index[i] += 1 : index[i] = 1}
-    index.sort_by { |key, value| value }.reverse
+  def categories
+    deals.map(&:category).compact.uniq.sort
   end
 
   def categories_index_with_total_revenue
