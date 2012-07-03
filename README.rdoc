@@ -4,10 +4,4 @@ The Merchant Hunter is an app created for the individual mastery project for Hun
 
 To import data, specify the csv location in the Importer module run Importer.import and Impoter.import_csv_zips
 
-To run tests, simply run rspec.  
-
-In Rails, the model is handled by what's called an object-relational mapping
-layer entitled Active Record. This layer allows you to present the data from
-database rows as objects and embellish these data objects with business logic
-methods. You can read more about Active Record in
-link:files/vendor/rails/activerecord/README.html.
+To run tests, simply run bundle exec rspec.  
