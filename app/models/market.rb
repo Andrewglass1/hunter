@@ -10,6 +10,11 @@ class Market < ActiveRecord::Base
 
   after_create :calculate_lat_long
 
+  def average_merchant_revenue
+    merchants_with_rev = merchants.select {|merchant| merchant.total_revenue if merchant.total_revenue > 0}
+    merchants.collect {|merchant| merchant.total_revenue}
+  end
+
   def max_revenue
     deals.map(&:revenue).compact.max
   end
