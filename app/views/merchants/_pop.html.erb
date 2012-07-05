@@ -1,3 +1,4 @@
+<div id="merchantpop">
 <h2><%= link_to merchant.name, merchant_path(merchant), :target => "_blank" %></h2>
 <p><%= link_to merchant.website, merchant.website, :target => "_blank" if merchant.website != "N/A" %></p>
 <p><%= merchant.phone if merchant.phone && merchant.phone != "N/A" %></p>
@@ -19,3 +20,4 @@
 <% end %>
 <hr>
 <% end %>
+</div>

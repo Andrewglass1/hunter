@@ -28,6 +28,7 @@
     <tr>
       <th><%= "Deal" %></th>
       <th><%= "Date" %></th>
+      <th><%= "Provider" %></th>
       <th><%= "Category" %></th>
       <th><%= "Revenue" %></th>
     </tr>
@@ -37,6 +38,7 @@
     <tr>
       <td><%= link_to deal.short_title, deal.deal_url, :target => "_blank" %></td>
       <td><%= deal.date_added %></td>
+      <td><%= deal.provider %></td>
       <td><%= deal.category %></td>
       <td><%= deal.revenue > 0 ? number_to_currency(deal.revenue, :unit => "$") : "No Revenue Reported" %></td>
     <% end %>
